@@ -1,18 +1,19 @@
 <?php
 
-include "db.php";
+include "../db.php";
 
 $id=iconv('utf-8','windows-1251',$_GET['id']);
-mssql_query("SET NAMES 'utf8'");
-$sql1 = mssql_query("Select id from [refOrganization] where Name = '$id'");
-$dt = mssql_fetch_array($sql1);
-$idorg=$dt['id'];
-    $sql = mssql_query("SELECT id,name FROM [ITr].[dbo].[refDepartment] where idOrg=$idorg");
-    while ($row = mssql_fetch_array($sql)){
+$stmt = sqlsrv_query($conn,"Select id from [refOrganization] where Name = '$id'");
+$row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
+$idorg=$row['id'];
+sqlsrv_free_stmt($stmt);
+
+$stmt = sqlsrv_query($conn,"SELECT id,name FROM [ITr].[dbo].[refDepartment] where idOrg=$idorg order by name");
+while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)){
        $content = $content.$row["id"]."[".iconv("windows-1251","utf-8",$row['name'])."]";
    }
 
-
-echo  $content
-
+echo  $content;
+sqlsrv_free_stmt($stmt);
+sqlsrv_close($conn);
 ?>

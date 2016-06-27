@@ -21,6 +21,7 @@
             <!-- /.db connection -->            
 <?php 
 	include 'db.php'; 
+    include 'mailer.php';
     session_start();
     if (isset($_GET['logout'])) {session_destroy();}
 
@@ -60,18 +61,19 @@
                     </div>
                     <div class="panel-body">
                         <form role="form" action="index.php" method="POST">
-                        <?php if (isset($_GET['auth'])) {echo '<div class="alert alert-danger" role="alert"><span class="fa fa-warning fa-fw"></span>Вы ввели не верный логин или пароль.</div>';} 
+                        <?php if (isset($_GET['auth'])) {echo '<div class="alert alert-danger" role="alert"><a class="close" data-dismiss="alert">×</a><span class="fa fa-warning fa-fw"></span>Вы ввели не верный логин или пароль.</div>';} 
                             if (isset($_GET['fogot']) and isset($_GET['email'])){
-                                $sql=mssql_query("select firstname+' '+middlename as name, login, pwditr, email from employees where idrole<>6 and email='".$_GET['email']."'");
-                                if (mssql_num_rows($sql)==0){
-                                echo '<div class="alert alert-danger" role="alert"><span class="fa fa-warning fa-fw"></span>Вы не являетесь пользователем системы.</div>';
+                                $sql = "select firstname+' '+middlename as name, login, pwditr, email from employees where idrole<>6 and email='".$_GET['email']."'";
+                                $stmt = sqlsrv_query($conn,$sql);
+                                if (!sqlsrv_has_rows($stmt)){
+                                echo '<div class="alert alert-danger" role="alert"><a class="close" data-dismiss="alert">×</a><div><span class="fa fa-warning fa-fw"></span>Вы не являетесь пользователем системы.</div></div>';
                                 } else {
-                                    $dt=mssql_fetch_array($sql);
+                                    $row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
                                     $newpass = generate_password(10);
                                     $cryptpass = crypt($newpass);
-                                    $login = $dt['login'];
+                                    $login = $row['login'];
                                     $subject = "Сброс пароля ИТр"; 
-                                    $namesignup = iconv("windows-1251","utf-8",$dt['name']);
+                                    $namesignup = iconv("windows-1251","utf-8",$row['name']);
                                     $message = " 
                                         <p>Уважаемый(ая) $namesignup!</p>\n
                                         <p>Вы запустили процедуру сброса пароля. Мы сгенерировали для Вас новый пароль: <strong>$newpass</strong></p>\n 
@@ -83,11 +85,14 @@
                                         $body .= "</html>\n";
                                         $mail->Subject = $subject;
                                         $mail->Body = $body;
-                                        $mail->AddAddress($dt['email'], $namesignup);
-                                        $mail->Send();                                    
-                                mssql_query("update employees set pwditr='$cryptpass' where login='$login'");
-                                echo '<div class="alert alert-success" role="success"><span class="fa fa-info fa-fw"></span>Новый пароль отправлен на указанный Вами адрес эл. почты.</div>';
+                                        $mail->AddAddress($row['email'], $namesignup);
+                                        $mail->Send();                 
+                                sqlsrv_free_stmt($stmt);
+                                $stmt = sqlsrv_query($conn,"update employees set pwditr='$cryptpass' where login='$login'");                   
+                                echo '<div class="alert alert-success" role="success"><a class="close" data-dismiss="alert">×</a><span class="fa fa-info fa-fw"></span>Новый пароль отправлен на указанный Вами адрес эл. почты.</div>';
                                 }
+                                sqlsrv_free_stmt($stmt);
+                                sqlsrv_close($conn);
                             }
                         ?>
                             <fieldset>
@@ -121,7 +126,7 @@
         <h4 class="modal-title">Сбросить пароль</h4>
       </div>
       <div class="modal-body">
-        <form><p>Введите корпоративный адрес электронной почты на который придет новый пароль для входа.</p>
+        <form action="login.php" method="GET"><p>Введите корпоративный адрес электронной почты на который придет новый пароль для входа.</p>
         <p>
         <input name="email" type="email" pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}" required class="form-control" placeholder="Укажите адрес эл. почты" />
         <input hidden="true" name="fogot" value="1" />

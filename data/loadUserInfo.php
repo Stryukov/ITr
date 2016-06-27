@@ -1,16 +1,16 @@
 <?php
 
-include "db.php";
+include "../db.php";
 
 $id = $_GET['id'];
-
-    $sql = mssql_query("SELECT Employees.id,lastName,email,firstName,middleName,Cabinet,Employees.Description,Foto,Pwd,refJob.Name as 'job',Phone,[Login], refWorkplace.Name as WP, refStreet.Name as Street
+$stmt = sqlsrv_query($conn,"SELECT Employees.id,lastName,email,firstName,middleName,Cabinet,Employees.Description,Foto,Pwd,refJob.Name as 'job',Phone,[Login], refWorkplace.Name as WP, refStreet.Name as Street
 FROM [ITr].[dbo].[Employees] left join [ITr].[dbo].[refJob] ON (Employees.idJob = refJob.id) 
 left join [ITr].[dbo].[refWorkplace] ON (Employees.id = refWorkplace.idEmployees) 
 left join [ITr].[dbo].[refStreet] ON (refStreet.id = refWorkplace.idrefStreet) 
 where Employees.id=$id");
+
    $content='';
-    $row = mssql_fetch_array($sql);
+    $row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
         $i = iconv("windows-1251","utf-8",$row["firstName"]);
         $uid = $row['id'];
         $o = iconv("windows-1251","utf-8",$row["middleName"]);
@@ -29,8 +29,7 @@ where Employees.id=$id");
        $content = $content.$uid.";".iconv("windows-1251","utf-8",$row["lastName"]).";".iconv("windows-1251","utf-8",$row["firstName"]).";".iconv("windows-1251","utf-8",$row["middleName"]).";".$login.";".$dolg.";".
        $phone.";".$kab.";".$photo.";".$pwd.";".$dop.";".$WP.";".$street.";".$email.";|";
   
-
-
 echo  $content;
-
+sqlsrv_free_stmt($stmt);
+sqlsrv_close($conn);
 ?>

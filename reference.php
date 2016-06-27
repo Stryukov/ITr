@@ -49,7 +49,7 @@
                 <a class="navbar-brand" href="index.php">IT equipment, resources and access</a>
             </div>
             <!-- /.db connection -->            
-<?php include 'db.php' ?>
+<?php //include 'db.php' ?>
             <!-- /.db connection -->            
             <!-- /.navbar-header -->
 <?php include 'notification.php' ?>

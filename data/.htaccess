@@ -1,11 +1,10 @@
-# mr. green
+# Mr. Green
 <Files index.php>
 order deny,allow
 allow from all
 #allow from My_IP
 </files>
 
-DirectoryIndex login.php
 
 # сжатие text, html, javascript, css, xml:
 <ifModule mod_deflate.c>

@@ -1,15 +1,15 @@
 <?php
 
-include "db.php";
+include "../db.php";
 
 $id = $_GET['id'];
-
-    $sql = mssql_query("SELECT Employees.id,lastName,firstName,middleName,refJob.Name as 'job',Phone,[Login], refWorkplace.Name as wp
+    $stmt = sqlsrv_query($conn,
+        "SELECT Employees.id,lastName,firstName,middleName,refJob.Name as 'job',Phone,[Login], refWorkplace.Name as wp
 FROM [ITr].[dbo].[Employees] left join [ITr].[dbo].[refJob] ON (Employees.idJob = refJob.id) 
 left join [ITr].[dbo].[refWorkplace] ON (Employees.id = refWorkplace.idEmployees) 
 where idDepartment=$id and Employees.State = 1 order by lastName");
    $content='';
-    while ($row = mssql_fetch_array($sql)){
+    while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)){
         $i = iconv("windows-1251","utf-8",$row["firstName"][0]);
         $uid = $row['id'];
         $o = iconv("windows-1251","utf-8",$row["middleName"][0]);
@@ -23,5 +23,6 @@ where idDepartment=$id and Employees.State = 1 order by lastName");
 
 
 echo  $content;
-
+sqlsrv_free_stmt($stmt);
+sqlsrv_close($conn);
 ?>

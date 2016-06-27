@@ -67,7 +67,7 @@ function confirmWP(){
     "data/busyWP.php",
                 {inp:$('#inpWP').val(),id:getSelectedIds("dataUsers2","id_user")},
                 function(wData){
-                    //alert(wData);
+                    alert(wData);
                     var arr = JSON.parse(wData);
                     $('#nameWP').html($('#inpWP').val());
                     $('#inpWP').val('');
@@ -111,9 +111,9 @@ function saveWP(){
     "data/createWP.php",
                 {inp:$('#inpWP').val(),id:getSelectedIds("dataUsers2","id_user"),street:street},
                 function(data){
-                    //alert(data);
+                    alert(data);
                     var arr = JSON.parse(data);
-                        $('#nameWP').html($('#inpWP').val());
+                    $('#nameWP').html($('#inpWP').val());
                     $('#inpWP').val('');
                     $('#streetWP').html('Расположение: '+arr[1]);
                     getJurnal();
@@ -137,7 +137,7 @@ function clsModal(a) {
 
 function transferUser(){
     idDep = $("#depSelect").select2("val");
-    if (idDep=='') {alert('плохо');} else {
+    if (idDep=='') {alert('Не удалось загрузить список отделов');} else {
 $.get(
     "data/transferUser.php",
                 {idDep:idDep,id:getSelectedIds("dataUsers2","id_user")},
@@ -673,7 +673,7 @@ function insert_event(){
 
 function saveNewUser(){
   arr =  $("#utags").tagsinput('items');
- //alert(arr);
+    //console.log(arr);
     fname = $('#fname').val();iname = $('#iname').val();oname = $('#oname').val();dolgn = $('#dolgn').val();tel = $('#tel').val();
     kab = $('#kab').val();userad = $('#userad').val();pass = $('#pass').val();rabm = $('#rabm').val();dopInfo = $('#dopInfo').val();
     email = $('#email').val();

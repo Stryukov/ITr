@@ -1,6 +1,6 @@
 <?php
 
-include "db.php";
+include "../db.php";
 session_start();
 
 $id = $_POST["id"];
@@ -10,13 +10,21 @@ $mass = split(',',$id);
 for ($i=0;$i<count($mass);$i++) {
 $id2=$mass[$i];    
 //////////////////
-$stmn = mssql_init("delUser", $db);
- mssql_bind($stmn, '@idUser', $id2, SQLINT2);
- mssql_bind($stmn, '@idOwner', $ssId, SQLINT2);
-$res = mssql_execute($stmn) or die("ошибка вставки в базу данных");
+$tsql_callSP = "{call delUser( ?, ?, )}";  
+$params = array(
+array($id2,SQLSRV_PARAM_IN),
+array($ssId, SQLSRV_PARAM_IN), 
+);  
+$stmt = sqlsrv_query( $conn, $tsql_callSP, $params);  
+
+if( $stmt === false ) {      
+echo "Error in executing statement.\n";      
+die( print_r( sqlsrv_errors(), true)); }  
+
+sqlsrv_free_stmt( $stmt); 
+sqlsrv_close($conn);
 //////////////////////
 }
 
 echo  'ok';
-
 ?>

@@ -512,7 +512,7 @@
     <script src="js/sb-admin.js"></script>
 
     <!-- Page-Level Demo Scripts - Dashboard - Use for reference -->
-    <script src="js/demo/dashboard-demo.js"></script>
+   <!-- <script src="js/demo/dashboard-demo.js"></script> -->
      
 
 </body>

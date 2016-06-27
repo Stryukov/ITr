@@ -1,19 +1,26 @@
 <?php
 
-include "db.php";
-
-//error_reporting(E_ALL);
+include "../db.php";
 
 $idRec = $_GET['idRec'];
 $tblId = $_GET['tblId'];
 
-$stmn = mssql_init("loadRefRec", $db);
-mssql_bind($stmn, '@idRec', $idRec, SQLVARCHAR);
-mssql_bind($stmn, '@tblId', $tblId, SQLINT2);
-$res = mssql_execute($stmn) or die("ошибка вставки в базу данных");
-$dt = mssql_fetch_array($res);
-$content = iconv('windows-1251','utf-8', $dt['name']).'|'.iconv('windows-1251','utf-8', $dt['description']).'|'.iconv('windows-1251','utf-8', $dt['parent']).'|';
+$tsql_callSP = "{call loadRefRec( ?,? )}";  
 
+$params = array(
+array(&$idRec, SQLSRV_PARAM_IN),
+array(&$tblId, SQLSRV_PARAM_IN)
+);  
+
+$stmt = sqlsrv_query( $conn, $tsql_callSP, $params);
+if( $stmt === false )
+{
+     echo "Error in executing statement 1.\n";
+     die( print_r( sqlsrv_errors(), true));
+}
+
+$row = sqlsrv_fetch_array($stmt); 
+$content = iconv('windows-1251','utf-8', $row['name']).'|'.iconv('windows-1251','utf-8', $row['description']).'|'.iconv('windows-1251','utf-8', $row['parent']).'|';
 echo  $content;
 
 ?>

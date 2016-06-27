@@ -1,16 +1,26 @@
 <?php
 
-include "db.php";
-//error_reporting(E_ALL);
+include "../db.php";
 session_start();
+
+$txt = $_GET["recId"];
 $tblId = $_GET["tblId"];
-$recId = $_GET["recId"];
-//echo $recId;
-$stmn = mssql_init("delRefRec", $db);
- mssql_bind($stmn, '@txt', $recId, SQLVARCHAR);
- mssql_bind($stmn, '@tblId', $tblId, SQLINT2);
-$res = mssql_execute($stmn) or die("ошибка вставки в базу данных");
-$res2 = mssql_fetch_array($res);
-echo $res2['result'];
+
+$tsql_callSP = "{call delRefRec( ?,? )}";  
+
+$params = array(
+array(&$txt, SQLSRV_PARAM_IN),
+array(&$tblId, SQLSRV_PARAM_IN)
+);  
+
+$stmt = sqlsrv_query( $conn, $tsql_callSP, $params);
+if( $stmt === false )
+{
+     echo "Error in executing statement 1.\n";
+     die( print_r( sqlsrv_errors(), true));
+}
+
+$row = sqlsrv_fetch_array($stmt); 
+echo $row['result'];
 
 ?>

@@ -5,32 +5,24 @@
  * @copyright 2015
  */
 
-include "db.php";
+include "../db.php";
 session_start();
 
 $ssId = $_SESSION['id'];
 $id = $_GET['id'];
 
-        $ss = mssql_query("select * from refWorkplace where idEmployees=$id");
-        //ззааппииссььввжжуурр
-        if (mssql_num_rows($ss)>0) {
-            $olddt = mssql_fetch_array($ss);
-            $old = $olddt['Name'];
+        $stmt = sqlsrv_query($conn,"select * from refWorkplace where idEmployees=$id");
+        //запись в журнал
+        if (sqlsrv_has_rows($stmt)) {
+            $row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);            
+            $old = $row['Name'];
             $oldRM = iconv('utf-8','windows-1251','Освобождено рабочее место <strong>'.$old.'</strong>');
-            mssql_query("
-    INSERT INTO [dbo].[uHistory]
-           ([eDate]
-           ,[Event]
-           ,[idEmployees]
-           ,[idAuthor])
-     VALUES
-           (SYSDATETIME()
-           ,'$oldRM'
-           ,$id
-           ,$ssId)");
+            sqlsrv_query($conn,"INSERT INTO [dbo].[uHistory] ([eDate],[Event],[idEmployees],[idAuthor]) VALUES (SYSDATETIME(),'$oldRM',$id,$ssId)");
         }
-        ///удаляем старые
-               mssql_query("update refWorkplace set idEmployees=0 where idEmployees=$id");
+        //Освобождаем РМ
+            sqlsrv_query($conn,"update refWorkplace set idEmployees=0 where idEmployees=$id");
         
 echo 'ok';
+sqlsrv_free_stmt( $stmt);  
+sqlsrv_close($conn);
 ?>

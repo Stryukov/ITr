@@ -1,20 +1,26 @@
 <?php
+include "../db.php";
 
-include "db.php";
+$idRef = $_GET['id'];
 
-$id = $_GET['id'];
+$tsql_callSP = "{call loadLinerRef( ? )}";  
+
+$params = array(
+array(&$idRef, SQLSRV_PARAM_IN)
+);  
 
 
+$stmt = sqlsrv_query( $conn, $tsql_callSP, $params);
+if( $stmt === false )
+{
+     echo "Error in executing statement 1.\n";
+     die( print_r( sqlsrv_errors(), true));
+}
 
-
-$stmn = mssql_init("loadLinerRef", $db);
- mssql_bind($stmn, '@idRef', $id, SQLINT2);
-    $res = mssql_execute($stmn) or die("ошибка вставки в базу данных");
-    //$res2 = mssql_fetch_array($res);
-  if (mssql_num_fields($res)==4){
+  if (sqlsrv_num_fields($stmt)==4){
     $content='$';
   } else $content='';
-    while ($row = mssql_fetch_array($res)){
+    while ($row = sqlsrv_fetch_array($stmt)){
         $id_ = $row['id'];
         $num = $row['number'];
         $name = iconv("windows-1251","utf-8",$row["name"]);
@@ -23,9 +29,9 @@ $stmn = mssql_init("loadLinerRef", $db);
         $idPar = $row['idparent'];
        $content = $content.$id_.";".$num.";".$name.";".$descr.";".$par.";".$idPar.";|";
    }
+  echo  $content;    
 
-
-echo  $content; 
-
+sqlsrv_free_stmt( $stmt);  
+sqlsrv_close($conn);
 
 ?>

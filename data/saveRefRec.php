@@ -1,27 +1,37 @@
 <?php
 
-include "db.php";
-//error_reporting(E_ALL);
+include "../db.php";
 session_start();
+
 $tblId = $_GET["tblId"];
 $edit = $_GET["edit"];
-$recId = $_GET["recId"];
+$idRec = $_GET["recId"];
 $name = iconv("utf-8","windows-1251",$_GET['name']);
-$descr = iconv("utf-8","windows-1251",$_GET['descr']);
+$description = iconv("utf-8","windows-1251",$_GET['descr']);
 $parent = iconv("utf-8","windows-1251",$_GET['parent']);
-$stmn = mssql_init("newRefRec", $db);
- mssql_bind($stmn, '@name', $name, SQLVARCHAR);
- mssql_bind($stmn, '@description', $descr, SQLVARCHAR);
- mssql_bind($stmn, '@parent', $parent, SQLVARCHAR);
- mssql_bind($stmn, '@idRec', $recId, SQLVARCHAR);
- mssql_bind($stmn, '@tblId', $tblId, SQLINT2);
- mssql_bind($stmn, '@edit', $edit, SQLINT2);
- mssql_bind($stmn, '@result', $result, SQLINT2,true);
-$res = mssql_execute($stmn) or die("ошибка вставки в базу данных");
-while (mssql_next_result($res)){
-    $res2 = mssql_fetch_array($res);
+
+$tsql_callSP = "{call newRefRec( ?,?,?,?,?,? )}";  
+
+$params = array(
+array(&$tblId, SQLSRV_PARAM_IN),
+array(&$idRec, SQLSRV_PARAM_IN),
+array(&$edit, SQLSRV_PARAM_IN),
+array(&$name, SQLSRV_PARAM_IN),
+array(&$description, SQLSRV_PARAM_IN),
+array(&$parent, SQLSRV_PARAM_IN)
+);  
+
+$stmt = sqlsrv_query( $conn, $tsql_callSP, $params);
+if( $stmt === false )
+{
+     echo "Error in executing statement 1.\n";
+     die( print_r( sqlsrv_errors(), true));
 }
-//echo $name.'.'.$descr.'.'.$parent.'.'.$recId.'.'.$tblId.'.'.$edit;
-echo $res2['result'];
+
+    while(sqlsrv_next_result($stmt))
+    {
+        $row = sqlsrv_fetch_array($stmt);
+        echo $row['result'];
+    }
 
 ?>

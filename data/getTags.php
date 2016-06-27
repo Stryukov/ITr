@@ -1,21 +1,14 @@
 <?php
 
-include "db.php";
+include "../db.php";
 session_start();
 
-mssql_query("SET NAMES 'utf8'");
-
-
-//$tags = $_POST["tags"];
 $id = $_GET["id"];
-
-$sql = mssql_query("select Name from refutags where idEmployees=$id");
-while ($dt=mssql_fetch_array($sql))
+$stmt = sqlsrv_query($conn,"select Name from refutags where idEmployees=$id");
+while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC))
 {
- echo iconv('windows-1251','utf-8',$dt['Name']).";";   
+ echo iconv('windows-1251','utf-8',$row['Name']).";";   
 }
-
-
-//echo  $id;
-
+sqlsrv_free_stmt($stmt);
+sqlsrv_close($conn);
 ?>

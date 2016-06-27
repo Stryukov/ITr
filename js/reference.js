@@ -7,13 +7,13 @@ function showTable(id,params,file,table,tablebody,hiddens,tekId){
                 params,
                 function(datas){
                     //alert(datas);
-                    if (datas.charAt(0)=='$') {
+                    if (datas.charAt(2)=='$') {
                           $('#tHeadd').removeAttr('parent');  
                               hiddens.push(4);
                     } else {
                      $('#tHeadd').attr('parent','true');
                     }
-                    datas.replace('$','');
+                    datas = datas.replace('$','');
  $('#'+table).DataTable().destroy();
                     $('#'+tablebody).empty();
                     

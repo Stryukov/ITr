@@ -1,31 +1,18 @@
 <?php
 
-include "db.php";
+include "../db.php";
 session_start();
-
-mssql_query("SET NAMES 'utf8'");
 
 $id = $_GET["id"];
 $idDep = iconv("utf-8","windows-1251",$_GET['idDep']);
-$sc = mssql_query("select [Name] from refDepartment where id = $idDep");
-$dt = mssql_fetch_array($sc);
-$text = $dt['Name'];
-
-    $ssId = $_SESSION['id'];
-    $sql2 = "
-    INSERT INTO [dbo].[uHistory]
-           ([eDate]
-           ,[Event]
-           ,[idEmployees]
-           ,[idAuthor])
-     VALUES
-           (SYSDATETIME()
-           ,'ïåðåâåäåí èç îòäåëà : $text'
-           ,$id
-           ,$ssId)";
-           mssql_query($sql2);
-  
+$stmt = sqlsrv_query($conn,"select [Name] from refDepartment where id = $idDep");
+$row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
+$text = $row['Name'];
+$ssId = $_SESSION['id'];
+sqlsrv_free_stmt($stmt);
+$stmt = sqlsrv_query($conn,"INSERT INTO [dbo].[uHistory] ([eDate],[Event],[idEmployees],[idAuthor]) VALUES (SYSDATETIME(),'".iconv("utf-8","windows-1251",'Ð¿ÐµÑ€ÐµÐ²ÐµÐ´ÐµÐ½ Ð¸Ð· Ð¾Ñ‚Ð´ÐµÐ»Ð°: ')."$text',$id,$ssId)");
 
 echo  $text;
-
+sqlsrv_free_stmt($stmt);
+sqlsrv_close($conn);
 ?>

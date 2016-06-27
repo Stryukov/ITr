@@ -1,18 +1,18 @@
 <?php
 
-include "db.php";
+include "../db.php";
 
 $content='';
-
-    $test = mssql_query("SELECT * FROM refOrganization order by Name");
-    while ($dt=mssql_fetch_array($test)){
-        $org=iconv("windows-1251","utf-8",$dt["Name"]);
-        $idorg=$dt["id"];
+$stmt = sqlsrv_query($conn,"SELECT * FROM refOrganization order by Name");
+    while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)){
+        $org=iconv("windows-1251","utf-8",$row["Name"]);
+        $idorg=$row["id"];
         
         $content=$content.$org."%".$idorg.";";
         
         }
-
+sqlsrv_free_stmt($stmt);
+sqlsrv_close($conn);
 
 echo $content;
 

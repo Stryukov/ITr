@@ -1,20 +1,17 @@
 <?php
 
-include "db.php";
-
-
-mssql_query("SET NAMES 'utf8'");
+include "../db.php";
 
 $id = $_GET['id'];
 $content='';
-$sql = mssql_query("select ROW_NUMBER() OVER(ORDER BY uHistory.id DESC) AS 'Num',FORMAT(uHistory.eDate, 'yyyy-MM-dd HH:mm:ss') as eDate,[uHistory].[Event],uHistory.idAuthor,[Employees].[Login] as lg 
+$stmt = sqlsrv_query($conn,"select ROW_NUMBER() OVER(ORDER BY uHistory.id DESC) AS 'Num',FORMAT(uHistory.eDate, 'yyyy-MM-dd HH:mm:ss') as eDate,[uHistory].[Event],uHistory.idAuthor,[Employees].[Login] as lg 
 from uHistory left Join Employees ON (uHistory.idAuthor = Employees.id) where uHistory.idEmployees=$id");
-while ($dt=mssql_fetch_array($sql))
+while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC))
 {
-    $num = $dt['Num'];
-    $time = $dt['eDate'];
-    $event = iconv('windows-1251','utf-8',$dt['Event']);
-    $owner = $dt['lg'];
+    $num = $row['Num'];
+    $time = $row['eDate'];
+    $event = iconv('windows-1251','utf-8',$row['Event']);
+    $owner = $row['lg'];
  $content=$content."<tr>
  <td>$num</td>".
  "<td>$time</td>".
@@ -23,8 +20,7 @@ while ($dt=mssql_fetch_array($sql))
  "</tr>";   
 }
 
-
-
 echo  $content;
-
+sqlsrv_free_stmt($stmt);
+sqlsrv_close($conn);
 ?>
