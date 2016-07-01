@@ -477,7 +477,7 @@ svButtonB();
 //  showTable($('#tHeadd').attr('tag'),{id:$('#tHeadd').attr('tag')},"loadUsers.php",table,tablebody,hiddens,-1); 
 //});     
     $('#newUser').modal('show');
-
+/*
 $('#utags').tagsinput('removeAll');   
 $.get(
     "data/getTags.php",
@@ -489,7 +489,7 @@ $.get(
                         if (data.charAt(i)==';') {$('#utags').tagsinput('add', nm);;nm="";}
                         if(data.charAt(i)!=';') {nm=nm+data.charAt(i);}
                     }
-                    });
+                    }); */
 
     } 
     
@@ -615,7 +615,14 @@ $.get(
                                 if (t==10) {$('#dopInfo').val(s);}
                                 if (t==11) {$('#nameWP').text(s);}
                                 if (t==12) {$('#streetWP').text('Расположение: '+s);}
-                                 if (t==13) {$('#email').val(s);}
+                                if (t==13) {$('#email').val(s);}
+                                if (t==14) {$('#utags').tagsinput('removeAll');   
+                    nm='';
+                    s=s+',';
+                    for (i=0;i<s.length;i++){
+                        if (s.charAt(i)==',') {$('#utags').tagsinput('add', nm);;nm="";}
+                        if(s.charAt(i)!=',') {nm=nm+s.charAt(i);}
+                    } svButtonG();}
                                 if (t==5) {
                                    // var dt = $("#job").select2("data");
                                     // delete dt.element; alert("Selected data is: "+JSON.stringify(dt));
@@ -625,7 +632,7 @@ $.get(
                                 if (t==8) {
                                     //alert(s);
                                     $('#tml').empty();
-                                    $('#tml').append("<img id='imgU' style='margin-left: 1.5px;' src='data:image/png;base64,"+s+"' />");
+                                    $('#tml').append("<img id='imgU' style='margin-left: 1.5px;' src='"+s+"' />");
                                     }
                                 t=t+1;s='';}
                             if (userData.charAt(i)!=';') {s=s+userData.charAt(i);}    
@@ -724,9 +731,8 @@ function saveNewUser(){
            ///enabled buttons
                     $('#myModalLabel').text('Редактирование данных пользователя');
                     svButtonG();
-                    showTable($('#tHeadd').attr('tag'),{id:$('#tHeadd').attr('tag')},"data/loadUsers.php",table,tablebody,hiddens,data); 
+                    //showTable($('#tHeadd').attr('tag'),{id:$('#tHeadd').attr('tag')},"data/loadUsers.php",table,tablebody,hiddens,data); 
                     });
-    
 }
 
 
@@ -852,6 +858,7 @@ function showTable(id,params,file,table,tablebody,hiddens,tekId){
                        $('#'+tablebody).append(content);
                     ////////////////////
                    tbl = $('#'+table).dataTable( {
+        rowId: 'extn',
         dom: 'T<"clear">lfrtip',
         "order": [[ 1, "asc" ]],
         tableTools: {
@@ -950,6 +957,7 @@ $('.mytag').on('itemAdded', function(event) {
 });
        
      $('#dataUsers2').dataTable( {
+        rowId: 'extn',
         dom: 'T<"clear">lfrtip',
         tableTools: {
             "sSwfPath": "swf/copy_csv_xls_pdf.swf", 

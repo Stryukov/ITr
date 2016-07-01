@@ -3,11 +3,18 @@
 include "../db.php";
 
 $id = $_GET['id'];
-$stmt = sqlsrv_query($conn,"SELECT Employees.id,lastName,email,firstName,middleName,Cabinet,Employees.Description,Foto,Pwd,refJob.Name as 'job',Phone,[Login], refWorkplace.Name as WP, refStreet.Name as Street
-FROM [ITr].[dbo].[Employees] left join [ITr].[dbo].[refJob] ON (Employees.idJob = refJob.id) 
-left join [ITr].[dbo].[refWorkplace] ON (Employees.id = refWorkplace.idEmployees) 
-left join [ITr].[dbo].[refStreet] ON (refStreet.id = refWorkplace.idrefStreet) 
-where Employees.id=$id");
+
+$tsql_callSP = "{call loadUserInfo( ? )}";  
+
+$params = array(
+array(&$id, SQLSRV_PARAM_IN));  
+
+$stmt = sqlsrv_query( $conn, $tsql_callSP, $params);
+if( $stmt === false )
+{
+     echo "Error in executing statement 1.\n";
+     die( print_r( sqlsrv_errors(), true));
+}
 
    $content='';
     $row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
@@ -22,12 +29,13 @@ where Employees.id=$id");
         $login = $row['Login'];
            $email = $row['email'];
         $street= iconv("windows-1251","utf-8",$row["Street"]);
+        $tags = iconv("windows-1251","utf-8",$row["tags"]);
         $WP = iconv("windows-1251","utf-8",$row["WP"]);
         if (is_null($row['WP'])){$WP = 'Рабочее место отсутствует';}
         
-        $photo=base64_encode($row["Foto"]);
+        $photo=$row["Foto"];
        $content = $content.$uid.";".iconv("windows-1251","utf-8",$row["lastName"]).";".iconv("windows-1251","utf-8",$row["firstName"]).";".iconv("windows-1251","utf-8",$row["middleName"]).";".$login.";".$dolg.";".
-       $phone.";".$kab.";".$photo.";".$pwd.";".$dop.";".$WP.";".$street.";".$email.";|";
+       $phone.";".$kab.";".$photo.";".$pwd.";".$dop.";".$WP.";".$street.";".$email.";".$tags.";|";
   
 echo  $content;
 sqlsrv_free_stmt($stmt);
