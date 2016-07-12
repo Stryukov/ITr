@@ -33,5 +33,7 @@ if( $stmt === false )
         $row = sqlsrv_fetch_array($stmt);
         echo $row['result'];
     }
+sqlsrv_free_stmt( $stmt);  
 
+include "getISAS.php";
 ?>

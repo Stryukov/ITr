@@ -67,7 +67,8 @@ function get_AD_users($adlogin)
             echo "Error in executing statement 1.\n";
             die(print_r(sqlsrv_errors(), true));
         }
-
+        sqlsrv_free_stmt( $stmt);  
+        sqlsrv_close($conn);
         //
         $user["photo"] = $info[$i]["thumbnailphoto"][0];
         $tmp = explode(" ", $user["fio"]);

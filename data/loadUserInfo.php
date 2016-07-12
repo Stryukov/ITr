@@ -16,28 +16,11 @@ if( $stmt === false )
      die( print_r( sqlsrv_errors(), true));
 }
 
-   $content='';
-    $row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
-        $i = iconv("windows-1251","utf-8",$row["firstName"]);
-        $uid = $row['id'];
-        $o = iconv("windows-1251","utf-8",$row["middleName"]);
-        $dolg =  iconv("windows-1251","utf-8",$row["job"]);
-        $phone = iconv("windows-1251","utf-8",$row["Phone"]);
-        $kab = iconv("windows-1251","utf-8",$row["Cabinet"]);
-         $pwd = iconv("windows-1251","utf-8",$row["Pwd"]);
-         $dop = iconv("windows-1251","utf-8",$row["Description"]);
-        $login = $row['Login'];
-           $email = $row['email'];
-        $street= iconv("windows-1251","utf-8",$row["Street"]);
-        $tags = iconv("windows-1251","utf-8",$row["tags"]);
-        $WP = iconv("windows-1251","utf-8",$row["WP"]);
-        if (is_null($row['WP'])){$WP = 'Рабочее место отсутствует';}
-        
-        $photo=$row["Foto"];
-       $content = $content.$uid.";".iconv("windows-1251","utf-8",$row["lastName"]).";".iconv("windows-1251","utf-8",$row["firstName"]).";".iconv("windows-1251","utf-8",$row["middleName"]).";".$login.";".$dolg.";".
-       $phone.";".$kab.";".$photo.";".$pwd.";".$dop.";".$WP.";".$street.";".$email.";".$tags.";|";
-  
-echo  $content;
+$row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
+
+$userinfo = array("uid" => $row['id'], "lastname" => iconv("windows-1251","utf-8",$row["lastName"]),"firstname" => iconv("windows-1251","utf-8",$row["firstName"]),"middlename" => iconv("windows-1251","utf-8",$row["middleName"]),"login" => $row['Login'],"job" => iconv("windows-1251","utf-8",$row["job"]),"phone" => iconv("windows-1251","utf-8",$row["Phone"]),"cab" => iconv("windows-1251","utf-8",$row["Cabinet"]),"photo" => $row["Foto"],"pwd" => iconv("windows-1251","utf-8",$row["Pwd"]),"info" => iconv("windows-1251","utf-8",$row["Description"]),"WP" => iconv("windows-1251","utf-8",$row["WP"]),"street" => iconv("windows-1251","utf-8",$row["Street"]),"email" => $row['email'],"tags" => iconv("windows-1251","utf-8",$row["tags"]),"access" => $row["Access"]);
+echo json_encode($userinfo, JSON_UNESCAPED_UNICODE);
+
 sqlsrv_free_stmt($stmt);
 sqlsrv_close($conn);
 ?>

@@ -22,5 +22,6 @@ if( $stmt === false )
 $row = sqlsrv_fetch_array($stmt); 
 $content = iconv('windows-1251','utf-8', $row['name']).'|'.iconv('windows-1251','utf-8', $row['description']).'|'.iconv('windows-1251','utf-8', $row['parent']).'|';
 echo  $content;
-
+sqlsrv_free_stmt( $stmt);  
+sqlsrv_close($conn);
 ?>
