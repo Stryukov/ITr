@@ -1,3 +1,18 @@
+$('.mytag').on('itemRemoved', function(event) {
+  svButtonB();
+});
+
+$('.mytag').on('itemAdded', function(event) {
+  svButtonB();
+});
+
+$('.bootstrap-tagsinput').focusin(function() {
+    $(this).addClass('focus');
+});
+$('.bootstrap-tagsinput').focusout(function() {
+    $(this).removeClass('focus');
+});
+
 function svButtonG () {
     $('#svButton').removeClass();
     $('#svButton').addClass('btn btn-success');
@@ -420,6 +435,7 @@ svButtonB();
            
            ///disabled buttons
            $('#utags').attr('disabled','disabled');
+           $('#access').attr('disabled','disabled');
              $('#insEV').addClass('disabled');
            $('#tWP').addClass('disabled');
            $('#addIT').addClass('disabled');
@@ -449,6 +465,7 @@ svButtonB();
     //alert(screenSize().h)
     //alert('ss');
     $('#utags').tagsinput('removeAll');
+    $('#access').tagsinput('removeAll');
     $('#history_body').empty();
     $('#nameWP').html('Рабочее место отсутствует');
     $('#streetWP').html('Расположение: ');    
@@ -550,6 +567,7 @@ function editUser(){
  svButtonG();
   ///enabled buttons
            $('#utags').removeAttr('disabled');
+           $('#access').removeAttr('disabled');
              $('#insEV').removeClass('disabled');
            $('#tWP').removeClass('disabled');
             $('#tDrop').removeClass('disabled');
@@ -592,59 +610,54 @@ allowClear: true
   $('#body').append(content);
      $("#job").select2("val", "");
      
-     
       ///////////////////////////////////////////////////
 $.get(
     "data/loadUserInfo.php",
                 {id:getSelectedIds("dataUsers2","id_user")},
-                function(userData){
-                       for (i=0;i<userData.length;i++)
-                        {
-                            if (userData.charAt(i)==';') {
-                                if (t==1) {$('#fname').val(s);}
-                                if (t==2) {$('#iname').val(s);}
-                                if (t==3) {$('#oname').val(s);}
-                                if (t==4) {$('#userad').val(s);}
-                                if (t==6) {$('#tel').val(s);}
-                                if (t==7) {$('#kab').val(s);}
-                                if (t==9) {
-                                    if (s==' ') {s='';}
-                                    $('#pass').val(s);
-                                //alert("/"+s+"/")
-                                }
-                                if (t==10) {$('#dopInfo').val(s);}
-                                if (t==11) {$('#nameWP').text(s);}
-                                if (t==12) {$('#streetWP').text('Расположение: '+s);}
-                                if (t==13) {$('#email').val(s);}
-                                if (t==14) {$('#utags').tagsinput('removeAll');   
-                    nm='';
-                    s=s+',';
-                    for (i=0;i<s.length;i++){
-                        if (s.charAt(i)==',') {$('#utags').tagsinput('add', nm);;nm="";}
-                        if(s.charAt(i)!=',') {nm=nm+s.charAt(i);}
-                    } svButtonG();}
-                                if (t==5) {
-                                   // var dt = $("#job").select2("data");
-                                    // delete dt.element; alert("Selected data is: "+JSON.stringify(dt));
-                                     $("#job").select2("val", s);
-                                   // $('#job').val(s);
-                                }
-                                if (t==8) {
-                                    //alert(s);
-                                    $('#tml').empty();
-                                    $('#tml').append("<img id='imgU' style='margin-left: 1.5px;' src='"+s+"' />");
-                                    }
-                                t=t+1;s='';}
-                            if (userData.charAt(i)!=';') {s=s+userData.charAt(i);}    
-                        }
-                    getJurnal();
+                function(data){
+                        var data = $.parseJSON(data);
+
+$('#fname').val(data.lastname);
+$('#iname').val(data.firstname);
+$('#oname').val(data.middlename);
+$('#userad').val(data.login);
+$('#tel').val(data.phone);
+$('#kab').val(data.cab);
+$('#pass').val(data.pwd);
+$('#dopInfo').val(data.info);
+$('#nameWP').text(data.WP);
+$('#streetWP').text('Расположение: '+data.street);
+$('#email').val(data.email);
+$("#job").select2("val", data.job);
+$('#tml').empty();
+$('#tml').append("<img id='imgU' style='margin-left: 1.5px;' src='"+data.photo+"' />");
+
+//добавляем матрицу
+elt.tagsinput('removeAll');   
+if (data.access != null && data.access != '') {
+nm='';
+s=data.access+',';
+for (i=0;i<s.length;i++){
+    if (s.charAt(i)==',') {elt.tagsinput('add', { id: parseInt(nm) , name: isas.get([nm])[0].name });;nm="";}
+    if(s.charAt(i)!=',') {nm=nm+s.charAt(i);}
+}
+}
+//добавляем теги
+$('#utags').tagsinput('removeAll');   
+nm='';
+s=data.tags+',';
+for (i=0;i<s.length;i++){
+    if (s.charAt(i)==',') {$('#utags').tagsinput('add', nm);;nm="";}
+    if(s.charAt(i)!=',') {nm=nm+s.charAt(i);}
+} 
+svButtonG();
+getJurnal();
                     
-                    
- 
-    if ($('#nameWP').text()=='Рабочее место отсутствует'){
-        $('#chStreet').addClass('disabled');
-        $('#freeWP').addClass('disabled');
-    }
+if ($('#nameWP').text()=='Рабочее место отсутствует'){
+    $('#chStreet').addClass('disabled');
+    $('#freeWP').addClass('disabled');
+}
+
                     });
                     ////////////////////////////////////////////////////////////////////
      
@@ -679,8 +692,8 @@ function insert_event(){
 
 
 function saveNewUser(){
-  arr =  $("#utags").tagsinput('items');
-    //console.log(arr);
+    arr =  $("#utags").tagsinput('items');
+    //console.log($("#access").val());
     fname = $('#fname').val();iname = $('#iname').val();oname = $('#oname').val();dolgn = $('#dolgn').val();tel = $('#tel').val();
     kab = $('#kab').val();userad = $('#userad').val();pass = $('#pass').val();rabm = $('#rabm').val();dopInfo = $('#dopInfo').val();
     email = $('#email').val();
@@ -703,7 +716,7 @@ function saveNewUser(){
    if ( $('#myModalLabel').text()=='Добавление пользователя') { edit=0;} else {edit=1;}
    $.post(
     "data/saveNewUser.php",
-                {tags:arr,id:getSelectedIds("dataUsers2","id_user"),fname:fname,iname:iname,oname:oname,dolgn:dolgn,tel:tel,kab:kab,userad:userad,
+                {tags:arr,access:$("#access").val(),id:getSelectedIds("dataUsers2","id_user"),fname:fname,iname:iname,oname:oname,dolgn:dolgn,tel:tel,kab:kab,userad:userad,
                 pass:pass,rabm:rabm,dopInfo:dopInfo,photo:dataImg,idDep:idDep,edit:edit,email:email},
                 function(data){
                     //alert(data);
@@ -722,6 +735,7 @@ function saveNewUser(){
                     //alert('sss');
                       ///enabled buttons
            $('#utags').removeAttr('disabled');
+           $('#access').removeAttr('disabled');
              $('#insEV').removeClass('disabled');
            $('#tWP').removeClass('disabled');
             $('#tDrop').removeClass('disabled');
@@ -989,7 +1003,27 @@ var data = {};
 
 getOrg();
 
+localStorage.clear();
 
+isas = new Bloodhound({
+    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+    prefetch: 'data/cities.json',
+    identify: function(obj) { return obj.id; },
+});
 
+isas.initialize();
+
+elt = $('#access');
+elt.tagsinput({
+  itemValue: 'id',
+  itemText: 'name',
+  typeaheadjs: {
+  limit: 10, // limit to show only 10 results
+    name: 'isas',
+    displayKey: 'name',
+    source: isas.ttAdapter()
+  }
+});
 
 });

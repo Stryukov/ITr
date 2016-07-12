@@ -581,6 +581,7 @@
        <script src="js/plugins/dialog/bootstrap-dialog.min.js"></script>
        <script src="js/holder.js"></script>
        <script src="js/plugins/tag/bootstrap-tagsinput.js"></script>
+       <script type="text/javascript" src="js/plugins/tag/typeahead.bundle.js"></script>
 
 	
     <!-- SB Admin Scripts - Include with every page -->
