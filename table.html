@@ -6,197 +6,26 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>IT equipment, resources and access</title>
+    <title>Start Bootstrap - SB Admin Version 2.0 Demo</title>
 
-    <!-- Core CSS - Include with every page css/bootstrap.min.css -->
-   <!-- <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.1.1/css/bootstrap.min.css" rel="stylesheet"> -->
-   <link href="css/bootstrap.css" rel="stylesheet">
-     
-    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
-<!-- <link rel="stylesheet" href="css/datepicker.css"> -->
-    <!-- Page-Level Plugin CSS - Blank css/plugins/bootstrap-combined.min.css -->
-    <link href="css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
-    <link href="css/plugins/dataTables/dataTables.tableTools.css" rel="stylesheet">
-    
-  <!--  <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.1.1/css/bootstrap-combined.min.css" rel="stylesheet">  
-    <link rel="stylesheet" type="text/css" media="screen" href="css/plugins/bootstrap-datetimepicker.min.css"> -->
+    <!-- Core CSS - Include with every page -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs-3.3.6/jqc-1.12.3/jszip-2.5.0/pdfmake-0.1.18/dt-1.10.12/af-2.1.2/b-1.2.1/b-colvis-1.2.1/b-flash-1.2.1/b-html5-1.2.1/b-print-1.2.1/cr-1.3.2/se-1.2.0/datatables.min.css"/>
 
-    <!-- SB Admin CSS - Include with every page -->
-    <link href="css/sb-admin.css" rel="stylesheet">
-    <link href="css/select2.css" rel="stylesheet"/>
-    <link href="css/jquery-ui.css" rel="stylesheet"/>
-    
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+
+
 </head>
 
 <body>
 
     <div id="wrapper">
-
-        <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
-            <div class="navbar-brand brand-btn" id="br-btn">
-                <a class="fa fa-bars fa-fw" style="text-decoration: none;"></a>
-            </div>        
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="index.php">IT equipment, resources and access</a>
-            </div>
-            <!-- /.navbar-header -->
-<?php include 'notification.php' ?>
-            <!-- /.navbar-top-links -->
-<?php include 'navigation.php' ?>
-            <!-- /.navbar-static-side -->
-        </nav>
-
-        <div id="page-wrapper">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1 class="page-header">Реестр оборудования</h1>
-                </div>
-                <div class="col-lg-3 col-lg-offset-9" style="margin-top: -65px;">
-                    <button id="test" type="button" class="btn btn-outline btn-primary" onclick="test()">Тест</button>
-                    <button id="ftoogle" type="button" class="btn btn-outline btn-primary">Фильтр</button>
-                    <button class="btn btn-outline btn-primary" data-toggle="modal" data-target="#myModal">Добавить</button>
-                    <button type="button" class="btn btn-outline btn-primary">Изменить</button>
-                    <button type="button" class="btn btn-outline btn-primary">Удалить</button>
-                </div>                
-                <!-- /.col-lg-12 -->
-            </div>
-            <!-- /.row -->
-            <!-- Modal -->
-                            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                            <h4 class="modal-title" id="myModalLabel">Название оборудования</h4>
-                                        </div>
-                                        <div class="modal-body">
-                                       
-                    <div class="panel panel-default">
-                     <!--   <div class="panel-heading">
-                            Pill Tabs
-                        </div> -->
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <!-- Nav tabs -->
-                            <ul class="nav nav-pills">
-                                <li class="active"><a href="#home-pills" data-toggle="tab">Основная информация</a>
-                                </li>
-                                <li><a href="#purchase-pills" data-toggle="tab">Закупка</a>
-                                </li>
-                                <li><a href="#responsibility-pills" data-toggle="tab">МОЛ</a>
-                                </li>
-                                <li><a href="#notes-pills" data-toggle="tab">Заметки</a>
-                                </li>
-                            </ul>
-
-                            <!-- Tab panes -->
-                            <div class="tab-content">
-                                <div class="tab-pane fade in active" id="home-pills">
-                                    <br />
-                                        <p><label>Наименование</label>
-                                        <input class="form-control" /></p>
-                                        <p><label>Тип оборудования</label>
-                                        <input class="form-control" placeholder="Справочник" /></p>                                       
-                                        
-                                        <p><label>Марка (Производитель)</label><br />
-                                      
-                                        
-                                        
-                                        <input id="remote" type="hidden" style="width: 100%;height: 34px;" />
-                                           </p>
-                                        <button id="redata">redata</button>
-                                        <p><label>Модель</label>
-                                        <input class="form-control" placeholder="Справочник" /></p> 
-                                        <p><label>Серийный номер</label>
-                                        <input class="form-control" /></p> 
-                                        <p><label>Инвентарный номер</label>
-                                        <input class="form-control" /></p> 
-                                        <p><label>Ответсвенный сотрудник</label>
-                                        <input class="form-control" placeholder="Справочник" /></p>   
-                                        <p><label>Рабочее место</label>
-                                        <input class="form-control" placeholder="Справочник" /></p>  
-                                        <p><label class="checkbox-inline">Закреплено за сотрудником <input type="checkbox" />.</label></p>                                                                                                                      
-                                        <p><label>Статус</label>
-                                            <select class="form-control">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select></p>                                                                                                                                                           
-                                </div>
-                                <div class="tab-pane fade" id="purchase-pills">
-                                    <br />
-                                        <p><label>Цена закупки</label>
-                                            <div class="form-group input-group">
-                                            <span class="input-group-addon"><i class="fa fa-rub"></i></span>
-                                            <input type="text" class="form-control" />
-                                        </div></p>
-                                        <p><label>Дата закупки</label> </p> 
-                            
-                            
-                            <div>
-            <div>
-                <input  type="text"  class="form-control" placeholder="выберите дату"  id="example1">
-            </div>
-        </div>                              
-                                        
-                                        
-                                        <p><label>Гарантия (Срок до)</label>
-                                        <input class="form-control" /></p>
-                                        <p><label>Поставщик</label>
-                                        <input class="form-control" placeholder="Справочник" /></p> 
-                                        <p><label>Документ прихода</label>
-                                        <input type="file" /></p>
-                                </div>
-                                <div class="tab-pane fade" id="responsibility-pills">
-                                    <h4>Messages Tab</h4>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                                </div>
-                                <div class="tab-pane fade" id="notes-pills">
-                                            <br />
-                                            <p><label>Дополнительная информация</label>
-                                            <textarea class="form-control" rows="10"></textarea></p>
-                                            <p><label>Добавить файл</label>
-                                            <input type="file" /></p>
-
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
-                    <!-- /.panel -->
-                                         
-                                        
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
-                                            <button type="button" class="btn btn-primary">Сохранить изменения</button>
-                                        </div>
-                                    </div>
-                                    <!-- /.modal-content -->
-                                </div>
-                                <!-- /.modal-dialog -->
-                            </div>
-            <!-- /.modal -->
-                            <div id="filtr" class="well" style="display: none;">
-                                <h4>Тут будет сам фильтр</h4>
-                                <p>DataTables is a very flexible, advanced tables plugin for jQuery. In SB Admin, we are using a specialized version of DataTables built for Bootstrap 3. We have also customized the table headings to use Font Awesome icons in place of images. For complete documentation on DataTables, visit their website at <a target="_blank" href="#">...</a>.</p>
-                                <a class="btn btn-default btn-lg btn-block" href="#">Применить фильтр</a>
-                            </div>            
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Подразделения не выбраны
-                        </div>
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <div class="table-responsive">
+                    <div class="row">
+                <div class="col-lg-12" style="padding: 50px">
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                     <thead>
                                         <tr>
@@ -610,39 +439,105 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                            </div>
-                            <!-- /.table-responsive -->
+                
+                
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+  Launch demo modal
+</button>
 
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
-                    <!-- /.panel -->            
-        </div>
-        <!-- /#page-wrapper -->
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        ... <button id='btn' style="padding: 50px">кнопка</button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+                </div>
+                <!-- /.col-lg-12 -->
+                
+            </div>
+
+ 
+
 
     </div>
     <!-- /#wrapper -->
 
-     <!-- Core Scripts - Include with every page -->
-    <script src="js/jquery-1.10.2.js"></script>
-    <script src="js/jquery-ui.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
 
-    <!-- Page-Level Plugin Scripts - Blank -->
-    <script src="js/select2.js"></script>
-    <script src="js/equipment.js"></script>
 
-    <!-- Page-Level Plugin Scripts - Tables -->
-    <script src="js/plugins/dataTables/jquery.dataTables.js"></script>
-    <script src="js/plugins/dataTables/dataTables.bootstrap.js"></script>
-    <script src="js/plugins/dataTables/dataTables.tableTools.js"></script>
-    
- 
-    <!-- SB Admin Scripts - Include with every page -->
-    <script src="js/sb-admin.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
-    <!-- Page-Level Demo Scripts - Tables - Use for reference -->   
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs-3.3.6/jqc-1.12.3/jszip-2.5.0/pdfmake-0.1.18/dt-1.10.12/af-2.1.2/b-1.2.1/b-colvis-1.2.1/b-flash-1.2.1/b-html5-1.2.1/b-print-1.2.1/cr-1.3.2/se-1.2.0/datatables.min.js"></script>
+
+    <!-- Page-Level Demo Scripts - Tables - Use for reference -->
+    <script>
+    $('#btn').click(function (){
+var table = $('#dataTables-example').DataTable();
+//console.log(table);
+// Find indexes of rows which have `Yes` in the second column
+var indexes = table.rows().eq( 0 ).filter( function (rowIdx) {
+    return table.cell( rowIdx, 1 ).data() === 'Firefox 1.5' ? true : false;
+} );
+ //console.log(table);
+// Add a class to those rows using an index selector
+table.rows( indexes )
+    .nodes()
+    .to$()
+    .addClass( 'selected' );
+
+var data = table.row( indexes ).data(); 
+
+ console.log(data[0]+'|'+indexes[0]);        
+
+    })
+    $(document).ready(function() {
+ //      var table =  $('#dataTables-example').dataTable();
+
+var table2 = $('#dataTables-example').DataTable( {
+    select: true
+} );
+
+//var allData = table.rows().data();
+
+//var data = table.row( 0 ).data(); 
+
+// console.log(data);
+/*
+// Find indexes of rows which have `Yes` in the second column
+var indexes = table.rows().eq( 0 ).filter( function (rowIdx) {
+    return table.cell( rowIdx, 1 ).data() === 'Firefox 1.5' ? true : false;
+} );
+// console.log(indexes);
+// Add a class to those rows using an index selector
+table.rows( indexes )
+    .nodes()
+    .to$()
+    .addClass( 'selected' );
+
+var data = table.row( indexes ).data(); 
+
+ console.log(data[0]);
+*/
+
+    });
+    </script>
 
 </body>
 

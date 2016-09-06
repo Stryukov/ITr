@@ -10,13 +10,13 @@ if (isset($_SESSION['login'])) {
     isset($_POST['email']) ? $usr = $_POST['email'] : $usr = null;
     isset($_POST['password']) ? $pwd = $_POST['password'] : $pwd = null;
     
-    if (isset($_POST['submit'])) {console.log('нажата');}
+    //if (isset($_POST['submit'])) {console.log('нажата');}
     if ($usr == '') {header("Location: login.php?auth=0");}
     
     $stmt = sqlsrv_query($conn,
         "SELECT id,[Login],lastname+' '+firstname+' '+middlename as fio, pwditr FROM Employees WHERE login='$usr' and state<>0");
     $row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
-    if ($row['pwditr'] <> crypt($pwd, $row['pwditr'])) {
+    if ($row['pwditr'] <> crypt(iconv('utf-8','windows-1251',$pwd), $row['pwditr'])) {
         header("Location: login.php?auth=0");
     } else {
         $_SESSION['login'] = $row['Login'];
@@ -229,7 +229,7 @@ sqlsrv_close($conn);
 } ?></a>
                         </li>                    
                         <li class="divider"></li>                        
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> Профиль</a>
+                        <li><a href="profile.php"><i class="fa fa-user fa-fw"></i> Профиль</a>
                         </li>
                         <li><a href="#"><i class="fa fa-gear fa-fw"></i> Настройки</a>
                         </li>

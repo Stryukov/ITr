@@ -1,3 +1,24 @@
+$('#subfilter').click(function (){
+  //showTable($('#tHeadd').attr('tag'),{id:$('#tHeadd').attr('tag')},"data/loadUsers.php",table,tablebody,hiddens,data); 
+var a = 856;  
+var table = $('#dataUsers2').DataTable();
+
+// Find indexes of rows which have `Yes` in the second column
+var indexes = table.rows().eq( 0 ).filter( function (rowIdx) {
+    return table.cell( rowIdx, 0 ).data() === a.toString() ? true : false;
+} );
+// Add a class to those rows using an index selector
+table.rows( indexes )
+    .nodes()
+    .to$()
+    .addClass( 'selected' );
+
+var data = table.row( indexes ).data(); 
+
+ console.log(data[0]+'|'+indexes[0]);   
+})
+
+
 $('.mytag').on('itemRemoved', function(event) {
   svButtonB();
 });
@@ -74,7 +95,6 @@ function preloadChangeStreet (){
 
 function usrclose () {
     clsModal('newUser');
-    
 }
 
 function confirmWP(){
@@ -719,10 +739,18 @@ function saveNewUser(){
                 {tags:arr,access:$("#access").val(),id:getSelectedIds("dataUsers2","id_user"),fname:fname,iname:iname,oname:oname,dolgn:dolgn,tel:tel,kab:kab,userad:userad,
                 pass:pass,rabm:rabm,dopInfo:dopInfo,photo:dataImg,idDep:idDep,edit:edit,email:email},
                 function(data){
-                    //alert(data);
-                    if (data=='no') {
-                       
-        $('#userad').attr('data-content','Такой пользователь уже есть');
+                    var data = JSON.parse(data);
+//                    alert('|'+data[0]+'|'+data[1]+'|'+data[2]);
+                    if (data[0]=='') {
+                                             
+        $('#userad').attr('data-content','Что-то пошло не так! Обратитесь к администратору');
+        $('#userad').popover('show');
+                        return;
+                    }                  
+
+                    if (data[0]=='no') {
+                                             
+        $('#userad').attr('data-content','Такой пользователь уже есть в '+data[1]+' - '+data[2]);
         $('#userad').popover('show');
                         return;
                     }
@@ -745,10 +773,56 @@ function saveNewUser(){
            ///enabled buttons
                     $('#myModalLabel').text('Редактирование данных пользователя');
                     svButtonG();
-                    //showTable($('#tHeadd').attr('tag'),{id:$('#tHeadd').attr('tag')},"data/loadUsers.php",table,tablebody,hiddens,data); 
+//                    showTable($('#tHeadd').attr('tag'),{id:$('#tHeadd').attr('tag')},"data/loadUsers.php",table,tablebody,hiddens,data); 
+
+
+console.log(data[0].toString());
+//clsModal('newUser');
+//setTimeout( selectRow(data[0].toString()), 1000); // время в мс               
+/*    $('#dataUsers2').DataTable().destroy();
+    var table = $('#dataUsers2').DataTable({
+        //ajax: 'https://api.myjson.com/bins/1us28',
+        initComplete: function(){
+            // Index of column containing IDs
+        var colIdIndex = 0;
+    
+        // List of row IDs
+        var rowIds = ['0', '1'];
+    
+        // Find indexes of rows which have IDs in the desired column
+        var rowIndexes = table.rows().eq(0).filter( function (rowIdx) {
+            return ($.inArray(table.cell( rowIdx, colIdIndex ).data(), rowIds) !== -1) ? true : false;
+        });    
+    
+            // Select rows based on array of found row indexes
+        table.rows(rowIndexes)
+          .nodes()
+          .to$()
+          .addClass( 'selected' );    
+        }
+    }); */
+
+
                     });
 }
 
+function selectRow(rowID) {
+var table = $('#dataUsers2').DataTable();
+// Find indexes of rows which have `Yes` in the second column
+var indexes = table.rows().eq( 0 ).filter( function (rowIdx) {
+    return table.cell( rowIdx, 0 ).data() === '856' ? true : false;
+} );
+// Add a class to those rows using an index selector
+table.rows( indexes )
+    .nodes()
+    .to$()
+    .addClass( 'selected' );
+
+var data = table.row( indexes ).data(); 
+
+ console.log(data[0]+'|'+indexes[0]);   
+
+}
 
 function clearWP(){
     id = getSelectedIds("dataUsers2","id_user");
@@ -997,7 +1071,8 @@ $('.mytag').on('itemAdded', function(event) {
                 "visible": false
             } ]
     } );
-      
+
+     
 gettree();
 var data = {};
 
