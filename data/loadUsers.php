@@ -17,6 +17,14 @@ FROM [ITr].[dbo].[Employees] left join [ITr].[dbo].[refJob] ON (Employees.idJob 
 left join [ITr].[dbo].[refWorkplace] ON (Employees.id = refWorkplace.idEmployees) 
 where idDepartment=$id and Employees.State = 1 order by lastName";
     }
+    if (substr($id, 0, 1)=='f'){
+      $id = substr($id, 1);
+      $sql = "SELECT Employees.id,lastName,firstName,middleName,refJob.Name as 'job',Phone,[Login], refWorkplace.Name as wp
+FROM [ITr].[dbo].[Employees] left join [ITr].[dbo].[refJob] ON (Employees.idJob = refJob.id) 
+left join [ITr].[dbo].[refWorkplace] ON (Employees.id = refWorkplace.idEmployees) 
+where Employees.State = 0 order by lastName";
+    }
+
     $stmt = sqlsrv_query($conn,$sql);
    $content='';
     while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)){
