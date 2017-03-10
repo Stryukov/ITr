@@ -22,6 +22,11 @@ $userad = $_POST["userad"];
 $email = $_POST["email"];
 $pass = $_POST["pass"];
 $idTags = '';
+if ($idDep[0]=='o' || $idDep[0]=='f') {
+	$stmt = sqlsrv_query($conn, "SELECT idDepartment FROM Employees WHERE login = '$userad'");
+	$row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
+	$idDep = $row['idDepartment'];
+}
 /*
 $id = '';
 $edit=0;
@@ -89,8 +94,10 @@ if( $stmt === false )
 }
 
 $row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC); 
+$org = isset($row['org'])?iconv('windows-1251','utf-8',$row['org']):'';
+$dep = isset($row['dep'])?iconv('windows-1251','utf-8',$row['dep']):'';
 
-echo json_encode(array(iconv('windows-1251','utf-8',$row['result']),iconv('windows-1251','utf-8',$row['org']),iconv('windows-1251','utf-8',$row['dep'])));
+echo json_encode(array(iconv('windows-1251','utf-8',$row['result']),$org,$dep));
 
 sqlsrv_free_stmt( $stmt);  
 sqlsrv_close($conn);

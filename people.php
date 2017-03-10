@@ -64,46 +64,125 @@
 
         <div id="page-wrapper">
             <div class="row">
-                <div class="col-lg-12">
-                    <h1 class="page-header">Список пользователей</h1>
-                </div>
-                <div class="col-lg-5 col-lg-offset-7 nav-button" >
-                
-<!--                
-<div class="btn-group" data-toggle="buttons">
-  <label class="btn btn-primary ">
-    <input type="checkbox" autocomplete="off"> Уволенные
-  </label>
-</div> -->               
-                
-                    <button id="ftoogle" type="button" class="btn btn-primary"><i class="fa fa-filter"></i> Фильтр</button>
-                    <button  class="btn btn-primary" data-toggle="modal" onclick="showModalD('newUser')" ><i class="fa fa-user-plus"></i> Добавить</button>
+                    <div class="col-xs-12 col-md-8">
+                        <h1 class="page-header">Список пользователей</h1>
+                    </div>
+                    <div class="col-xs-6 col-md-4" style="text-align: right;margin-top: 50px;">
+                        <button id="ftoogle" type="button" class="btn btn-primary"><i class="fa fa-filter"></i> Фильтр</button>
+                        <button  class="btn btn-primary" data-toggle="modal" onclick="showModalD('newUser')" ><i class="fa fa-user-plus"></i> Добавить</button>
 
-<!-- Split button -->
-<div class="btn-group">
-  <button onclick="editUser()" type="button" class="btn btn-danger"><i class="fa fa-edit"></i> Изменить</button>
-  <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-    <span class="caret"></span>
-    <span class="sr-only">Toggle Dropdown</span>
-  </button>
-  <ul class="dropdown-menu dropdown-menu-right" role="menu" style="text-align: left;">
-    <li><a href="#" onclick="showModalD('transferUser')"><i class="fa fa-exchange"></i> Перевести</a></li>
-    <li><a onclick="deleteUser();" href="#" ><i class="fa fa-user-times"></i> Уволить</a></li>
-  </ul>
-</div>                    
-                </div>                
-                <!-- /.col-lg-12 -->
+                        <!-- Split button -->
+                        <div class="btn-group">
+                          <button onclick="editUser()" type="button" class="btn btn-danger"><i class="fa fa-edit"></i> Изменить</button>
+                          <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                          </button>
+                          <ul class="dropdown-menu dropdown-menu-right" role="menu" style="text-align: left;">
+                            <li><a href="#" onclick="showModalD('transferUser')"><i class="fa fa-exchange"></i> Перевести</a></li>
+                            <li><a onclick="deleteUser();" href="#" ><i class="fa fa-user-times"></i> Уволить</a></li>
+                          </ul>
+                        </div>                         
+                    </div> 
+                    <div></div> 
             </div>
             <!-- /.row -->
                 <!-- /.col-lg-4 -->
-                <div class="row">
-                <div class="col-lg-12">
-                <div id="filtr" class="well" style="display: none;">
-                    <h4>Тут будет сам фильтр</h4>
-                    <p>DataTables is a very flexible, advanced tables plugin for jQuery. In SB Admin, we are using a specialized version of DataTables built for Bootstrap 3. We have also customized the table headings to use Font Awesome icons in place of images. For complete documentation on DataTables, visit their website at <a target="_blank" href="#">...</a>.</p>
-                    <a class="btn btn-default btn-lg btn-block" id="subfilter" href="#">Применить фильтр</a>
-                </div>
-                </div>                  
+<div class="row" style="margin: 0px 0px 0px 0px;">
+                <div id="filtr" class="col-lg-12 well" style="display: none;">
+                    <div class="col-xs-6 col-sm-3">
+                        <div class="form-group">
+                            <label>Text Input with Placeholder</label>
+                            <input class="form-control" placeholder="Enter text">
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-3">
+                        <div class="form-group">
+                            <label>Text Input with Placeholder</label>
+                            <input class="form-control" placeholder="Enter text">
+                        </div>
+                    </div> 
+                    <div class="col-xs-6 col-sm-3">
+                        <div class="form-group">
+                            <label>Text Input with Placeholder</label>
+                            <input class="form-control" placeholder="Enter text">
+                        </div>
+                    </div> 
+                    <div class="col-xs-6 col-sm-3">
+                        <div class="form-group">
+                            <label>Text Input with Placeholder</label>
+                            <input class="form-control" placeholder="Enter text">
+                        </div>
+                    </div>          
+                    <div class="col-xs-6 col-sm-3">
+                        <div class="form-group">
+                            <label>Text Input with Placeholder</label>
+                            <input class="form-control" placeholder="Enter text">
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-3">
+                        <div class="form-group">
+                            <label>Text Input with Placeholder</label>
+                            <input class="form-control" placeholder="Enter text">
+                        </div>
+                    </div> 
+                    <div class="col-xs-6 col-sm-3">
+                        <div class="form-group">
+                            <label>Text Input with Placeholder</label>
+                            <input class="form-control" placeholder="Enter text">
+                        </div>
+                    </div> 
+                    <div class="col-xs-6 col-sm-3">
+                        <div class="form-group">
+                            <label>Text Input with Placeholder</label>
+                            <input class="form-control" placeholder="Enter text">
+                        </div>
+                    </div>                                                      
+                <div class="col-lg-12" style="margin-bottom: 10px;" ><a class="btn btn-default btn-lg btn-block" id="subfilter" href="#">Применить фильтр</a></div>
+                <div class="col-lg-12" ><a class="btn btn-danger btn-lg btn-block" id="clrfilter" href="#">Сбросить фильтр</a></div>
+
+                </div>    
+</div>
+<div class="row">
+    <div class="alert alert-danger alert-dismissable" style="display: none;" id="alertdiv">
+        <span id="alertmsg"></span>
+    </div>
+</div>
+<!-- модалка для поиска пользователей -->
+<div class="modal fade" id="searchmodal" tabindex="-1" role="dialog" aria-labelledby="searchmodal" aria-hidden="true" data-backdrop="static"> <!-- modal global search -->
+  <div class="modal-dialog ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" onclick="clsModal('searchmodal');" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Найдено несколько записей</h4>
+      </div>
+      <div class="modal-body">
+
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>ФИО</th>
+                <th>Логин AD</th>
+                <th>Рабочее место</th>
+                <th> </th>
+            </tr>
+        </thead>
+        <tbody id="srchrsttable">
+
+        </tbody>
+    </table>
+</div>
+
+          <div style="text-align: right;">
+            <button type="button" class="btn btn-default" onclick="clsModal('searchmodal')" >Отмена</button>
+         </div>
+      </div>
+    </div>
+  </div>
+</div>
+                <div class="row">              
                 <div class="col-lg-4">
 				<!--tree -->
 <div class="tree well" id="treeOrg" data-placement="top" data-trigger="manual" onclick="$('#'+this.id).popover('hide');">

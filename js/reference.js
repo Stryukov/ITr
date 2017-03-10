@@ -47,6 +47,7 @@ function showTable(id,params,file,table,tablebody,hiddens,tekId){
                        $('#'+tablebody).append(content);
                     ////////////////////
                    tbl = $('#'+table).dataTable( {
+        stateSave: true,
         dom: 'T<"clear">lfrtip',
         "order": [[ 1, "asc" ]],
         tableTools: {

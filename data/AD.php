@@ -53,7 +53,7 @@ function get_AD_users($adlogin)
         $user["login"] = $info[$i]["samaccountname"][0];
         $user["fio"] = $info[$i]["name"][0];
         $user["phone"] = $info[$i]["telephonenumber"][0];
-        $user["cab"] = $info[$i]["physicaldeliveryofficename"][0];
+        $user["cab"] = isset($info[$i]["physicaldeliveryofficename"][0])?$info[$i]["physicaldeliveryofficename"][0]:'';
         $user["job"] = $info[$i]["title"][0];
         $user["email"] = $info[$i]["mail"][0];
         $job = iconv('utf-8', 'windows-1251', $user["job"]);

@@ -1,7 +1,7 @@
 <?php
 
 include "../db.php";
-
+$content='';
 $a=$_GET['a'];
 if ($a=='job') {
     $stmt = sqlsrv_query($conn,"SELECT id,name FROM [ITr].[dbo].[refJob] order by name");

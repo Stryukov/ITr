@@ -18,6 +18,8 @@
 
     <!-- SB Admin CSS - Include with every page -->
     <link href="css/sb-admin.css" rel="stylesheet">
+    <link href="css/sb-admin-2.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/flipclock.css">
 
 </head>
 
@@ -51,7 +53,20 @@
             </div>
             <!-- /.row -->
             <div class="row">
-                <div class="col-lg-8">
+                <div class="col-lg-12">
+          <!--          <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Информация
+                        </div>
+           
+                        <div class="panel-body">
+                            <h1 style="text-align: center;">До 23 февраля осталось:</h1><br />
+                            <div style="width: 620px; margin: 0 auto;" class="clock"></div><br />
+                            <div style="text-align: center;width: 620px;margin: 0 auto;" class="clock-stop"></div>
+                        </div>
+  
+                    </div>                
+            <--
                  <!--   <div class="panel panel-default">
                         <div class="panel-heading">
                             <i class="fa fa-bar-chart-o fa-fw"></i> Area Chart Example
@@ -81,6 +96,94 @@
                         </div> -->
                        
                     </div>
+                        <div class="col-lg-3 col-md-6">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <i class="fa fa-users fa-5x"></i>
+                                        </div>
+                                        <div class="col-xs-9 text-right">
+                                            <div id="uAD" class="huge">0</div>
+                                            <div>Пользователей в AD</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="#">
+                                    <div class="panel-footer">
+                                        <span class="pull-left">Подробнее</span>
+                                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>                        
+                        <div class="col-lg-3 col-md-6">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <i class="fa fa-user-circle fa-5x"></i>
+                                        </div>
+                                        <div class="col-xs-9 text-right">
+                                            <div id="uITr" class="huge">0</div>
+                                            <div>Сотрудников в ИТр</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="people.php">
+                                    <div class="panel-footer">
+                                        <span class="pull-left">Подробнее</span>
+                                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>               
+                        <div class="col-lg-3 col-md-6">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <i class="fa fa-desktop fa-5x"></i>
+                                        </div>
+                                        <div class="col-xs-9 text-right">
+                                            <div id="wStation" class="huge">0</div>
+                                            <div>Рабочих станций</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="#">
+                                    <div class="panel-footer">
+                                        <span class="pull-left">Подробнее</span>
+                                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>        
+                        <div class="col-lg-3 col-md-6">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <i class="fa fa-server fa-5x"></i>
+                                        </div>
+                                        <div class="col-xs-9 text-right">
+                                            <div id="servers" class="huge">0</div>
+                                            <div>Серверов</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="#">
+                                    <div class="panel-footer">
+                                        <span class="pull-left">Подробнее</span>
+                                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>                                                            
                     <!-- /.panel -->
                <!--     <div class="panel panel-default">
                         <div class="panel-heading">
@@ -510,6 +613,8 @@
 
     <!-- SB Admin Scripts - Include with every page -->
     <script src="js/sb-admin.js"></script>
+    <script type="text/javascript" src="js/flipclock.min.js"></script>
+    <script type="text/javascript" src="js/main.js" ></script>
 
     <!-- Page-Level Demo Scripts - Dashboard - Use for reference -->
    <!-- <script src="js/demo/dashboard-demo.js"></script> -->

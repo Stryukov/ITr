@@ -1,6 +1,74 @@
+ //проверка get параметра
+ $.urlParam = function(name){
+    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+    if (results==null){
+       return null;
+    }
+    else{
+       return results[1] || 0;
+    }
+}
+
+//нажатие кнопки ентер при поиске
+ $('#txtsrch').keypress(function (e) {
+ var key = e.which;
+ if(key == 13)  // the enter key code
+  {
+    $('#globalsearch').click();
+    return false;  
+  }
+});
+
+//нажали на кнопку искать
+$('#globalsearch').click(function(){
+  globsearch($('#txtsrch').val());  
+})
+
+//поиск пользователей
+function globsearch (txtsrch){
+  if (txtsrch == '') {
+    $('#alertmsg').html('Введите текст для поиска');
+    $('#alertdiv').show();
+    return;
+  }
+         $.get("data/globalsearch.php",{txt:txtsrch},
+                function(data){
+                  var table = $('#dataUsers2').DataTable();
+                  $('#alertdiv').hide();
+                  var data = JSON.parse(data);
+                  if (data['cnt'] == 0){ 
+                    $('#alertmsg').html('Совпаденией не найдено. Попробуйте изменить поисковую фразу');
+                    $('#alertdiv').show();
+                    $('.dataTables_filter input').val('');
+                    table.search('').draw();
+                    return;}
+                  if (data['cnt'] == 1) {
+                    $('#e'+data['depID']).click();
+                    $('.dataTables_filter input').val(txtsrch);
+                    table.search(txtsrch).draw();
+                    return;  
+                  }
+                  if (data['cnt'] > 1) {
+                    $('#searchmodal').modal('show');
+                    var row = ''; 
+                    for (var i = 1; i <= data['cnt']; i++) {
+                         row += '<tr><td>'+i+'</td><td>'+data['Name'+i]+'</td><td>'+data['login'+i]+'</td><td>'+data['WP'+i]+'</td><td><a href="/itr/people.php?globsearch='+data['login'+i]+'" class="btn btn-success">Перейти</a></td></tr>';
+                       }
+                    $('#srchrsttable').html(row);
+                  }
+                  
+                    });
+}
+
+//фильтр
 $('#subfilter').click(function (){
+  console.log('пук');
+  console.log($('#e35').html());
+
+  //$('#e35').click();
+  
   //showTable($('#tHeadd').attr('tag'),{id:$('#tHeadd').attr('tag')},"data/loadUsers.php",table,tablebody,hiddens,data); 
-var a = 856;  
+/*var a = 856;  
 var table = $('#dataUsers2').DataTable();
 
 // Find indexes of rows which have `Yes` in the second column
@@ -15,7 +83,7 @@ table.rows( indexes )
 
 var data = table.row( indexes ).data(); 
 
- console.log(data[0]+'|'+indexes[0]);   
+ console.log(data[0]+'|'+indexes[0]);   */
 })
 
 
@@ -95,6 +163,8 @@ function preloadChangeStreet (){
 
 function usrclose () {
     clsModal('newUser');
+    showTable($('#tHeadd').attr('tag'),{id:$('#tHeadd').attr('tag')},"data/loadUsers.php",table,tablebody,hiddens,getSelectedIds("dataUsers2","id_user")); 
+
 }
 
 function confirmWP(){
@@ -102,7 +172,7 @@ function confirmWP(){
     "data/busyWP.php",
                 {inp:$('#inpWP').val(),id:getSelectedIds("dataUsers2","id_user")},
                 function(wData){
-                    alert(wData);
+                    //alert(wData);
                     var arr = JSON.parse(wData);
                     $('#nameWP').html($('#inpWP').val());
                     $('#inpWP').val('');
@@ -146,7 +216,7 @@ function saveWP(){
     "data/createWP.php",
                 {inp:$('#inpWP').val(),id:getSelectedIds("dataUsers2","id_user"),street:street},
                 function(data){
-                    alert(data);
+                    //alert(data);
                     var arr = JSON.parse(data);
                     $('#nameWP').html($('#inpWP').val());
                     $('#inpWP').val('');
@@ -596,6 +666,8 @@ function editUser(){
            $('#removeIT').removeClass('disabled');
            ///enabled buttons
     showModalD('editUser');
+    $('#newUser').attr('si',getSelectedIds("dataUsers2","id_user"));
+    //alert($('#newUser').attr('si'));
         $("#job").select2("destroy");
     
 $.get(
@@ -631,6 +703,7 @@ allowClear: true
      $("#job").select2("val", "");
      
       ///////////////////////////////////////////////////
+     // alert(getSelectedIds("dataUsers2","id_user"));
 $.get(
     "data/loadUserInfo.php",
                 {id:getSelectedIds("dataUsers2","id_user")},
@@ -726,6 +799,11 @@ function saveNewUser(){
     
      dolgn = $("#job").select2("val");
     idDep = $('#tHeadd').attr('tag');
+    if (idDep[0]=='o') {
+        $('#userad').attr('data-content','Нельзя создать пользователя во "Все сотрудники". Обязательно выберите отдел!');
+        $('#userad').popover('show');
+        return;
+    }    
   var img = document.getElementById("imgU");
    var canvas = document.createElement("canvas");
     canvas.width = img.width;
@@ -774,55 +852,14 @@ function saveNewUser(){
                     $('#myModalLabel').text('Редактирование данных пользователя');
                     svButtonG();
 //                    showTable($('#tHeadd').attr('tag'),{id:$('#tHeadd').attr('tag')},"data/loadUsers.php",table,tablebody,hiddens,data); 
+           showTable($('#tHeadd').attr('tag'),{id:$('#tHeadd').attr('tag')},"data/loadUsers.php",table,tablebody,hiddens,data[0]); //выделяет строку, которую создали id = data[0]
+//clsModal('newUser'); 
 
-
-console.log(data[0].toString());
-//clsModal('newUser');
-//setTimeout( selectRow(data[0].toString()), 1000); // время в мс               
-/*    $('#dataUsers2').DataTable().destroy();
-    var table = $('#dataUsers2').DataTable({
-        //ajax: 'https://api.myjson.com/bins/1us28',
-        initComplete: function(){
-            // Index of column containing IDs
-        var colIdIndex = 0;
-    
-        // List of row IDs
-        var rowIds = ['0', '1'];
-    
-        // Find indexes of rows which have IDs in the desired column
-        var rowIndexes = table.rows().eq(0).filter( function (rowIdx) {
-            return ($.inArray(table.cell( rowIdx, colIdIndex ).data(), rowIds) !== -1) ? true : false;
-        });    
-    
-            // Select rows based on array of found row indexes
-        table.rows(rowIndexes)
-          .nodes()
-          .to$()
-          .addClass( 'selected' );    
-        }
-    }); */
 
 
                     });
 }
 
-function selectRow(rowID) {
-var table = $('#dataUsers2').DataTable();
-// Find indexes of rows which have `Yes` in the second column
-var indexes = table.rows().eq( 0 ).filter( function (rowIdx) {
-    return table.cell( rowIdx, 0 ).data() === '856' ? true : false;
-} );
-// Add a class to those rows using an index selector
-table.rows( indexes )
-    .nodes()
-    .to$()
-    .addClass( 'selected' );
-
-var data = table.row( indexes ).data(); 
-
- console.log(data[0]+'|'+indexes[0]);   
-
-}
 
 function clearWP(){
     id = getSelectedIds("dataUsers2","id_user");
@@ -947,6 +984,7 @@ function showTable(id,params,file,table,tablebody,hiddens,tekId){
                     ////////////////////
                    tbl = $('#'+table).dataTable( {
         rowId: 'extn',
+        stateSave: true,
         dom: 'T<"clear">lfrtip',
         "order": [[ 1, "asc" ]],
         tableTools: {
@@ -1011,12 +1049,14 @@ function getSelectedIds(tableProto,fieldName){
            s=s+ tdata[i][idx]+',' ;
            }
            s=s.substring(0, s.length - 1)
+           //alert(s);
     return s;
 }
 
 
 
 $(document).ready(function () {
+
     $('#ftoogle').click(function (){
         $('#filtr').fadeToggle();
         });
@@ -1046,6 +1086,7 @@ $('.mytag').on('itemAdded', function(event) {
        
      $('#dataUsers2').dataTable( {
         rowId: 'extn',
+        stateSave: true,
         dom: 'T<"clear">lfrtip',
         tableTools: {
             "sSwfPath": "swf/copy_csv_xls_pdf.swf", 
@@ -1100,5 +1141,9 @@ elt.tagsinput({
     source: isas.ttAdapter()
   }
 });
+
+    if ($.urlParam('globsearch')) {
+      globsearch(decodeURIComponent($.urlParam('globsearch')));
+    } 
 
 });

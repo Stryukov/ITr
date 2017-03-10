@@ -9,15 +9,14 @@
 
 ?>
 
-
             <div class="navbar-default navbar-static-side" role="navigation">
                 <div class="sidebar-collapse">
                     <ul class="nav" id="side-menu">
                         <li class="sidebar-search">
                             <div class="input-group custom-search-form">
-                                <input type="text" class="form-control" placeholder="Найти...">
+                                <input type="text" class="form-control" placeholder="Найти..." id="txtsrch">
                                 <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">
+                                <button class="btn btn-default" type="button" id="globalsearch">
                                     <i class="fa fa-search"></i>
                                 </button>
                             </span>

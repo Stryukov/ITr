@@ -1,7 +1,8 @@
 <?php
 
 include "../db.php";
-
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 $id = $_GET['id'];
     if (substr($id, 0, 1)=='o'){
       $id = substr($id, 1);
@@ -26,11 +27,11 @@ where Employees.State = 0 order by lastName";
     }
 
     $stmt = sqlsrv_query($conn,$sql);
-   $content='';
+   $content='';$i='';$o='';
     while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)){
-        $i = iconv("windows-1251","utf-8",$row["firstName"][0]);
+        if ($row["firstName"]<>'') {$i = iconv("windows-1251","utf-8",$row["firstName"][0]);} else {$i='';}
         $uid = $row['id'];
-        $o = iconv("windows-1251","utf-8",$row["middleName"][0]);
+        if ($row["middleName"]<>'') {$o = iconv("windows-1251","utf-8",$row["middleName"][0]);} else {$o='';}
         $dolg =  iconv("windows-1251","utf-8",$row["job"]);
         $phone = iconv("windows-1251","utf-8",$row["Phone"]);
         $wp = iconv("windows-1251","utf-8",$row["wp"]);

@@ -11,7 +11,7 @@
  * @contact     www.sprymedia.co.uk/contact
  * @copyright   Copyright 2008-2015 SpryMedia Ltd.
  *
- * This source file is free software, available under the following license:
+ * This source file is free software, available und"sNext"er the following license:
  *   MIT license - http://datatables.net/license
  *
  * This source file is distributed in the hope that it will be useful, but
@@ -11318,7 +11318,7 @@
 				 *      } );
 				 *    } );
 				 */
-				"sNext": "Next",
+				"sNext": "Следующая",
 	
 	
 				/**
@@ -11341,7 +11341,7 @@
 				 *      } );
 				 *    } );
 				 */
-				"sPrevious": "Previous"
+				"sPrevious": "Предыдущая"
 			},
 	
 			/**
@@ -11364,7 +11364,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sEmptyTable": "No data available in table",
+			"sEmptyTable": "Записи отсутствуют!",
 	
 	
 			/**
@@ -11396,7 +11396,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sInfo": "Showing _START_ to _END_ of _TOTAL_ entries",
+			"sInfo": "Показано с _START_ по _END_ из _TOTAL_ записей",
 	
 	
 			/**
@@ -11417,7 +11417,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sInfoEmpty": "Showing 0 to 0 of 0 entries",
+			"sInfoEmpty": "Показано с 0 по 0 из 0 записей",
 	
 	
 			/**
@@ -11439,7 +11439,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sInfoFiltered": "(filtered from _MAX_ total entries)",
+			"sInfoFiltered": "(Отобрано из _MAX_ записей)",
 	
 	
 			/**
@@ -11637,7 +11637,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sSearch": "Search:",
+			"sSearch": "Поиск: ",
 	
 	
 			/**
@@ -11695,7 +11695,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sZeroRecords": "No matching records found"
+			"sZeroRecords": "Совпадений не найдено"
 		},
 	
 	
