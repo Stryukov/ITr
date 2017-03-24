@@ -18,7 +18,7 @@ FROM [ITr].[dbo].[Employees] left join [ITr].[dbo].[refJob] ON (Employees.idJob 
 left join [ITr].[dbo].[refWorkplace] ON (Employees.id = refWorkplace.idEmployees) 
 where idDepartment=$id and Employees.State = 1 order by lastName";
     }
-    if (substr($id, 0, 1)=='f'){
+    if (substr($id, 0, 5)=='1145'){
       $id = substr($id, 1);
       $sql = "SELECT Employees.id,lastName,firstName,middleName,refJob.Name as 'job',Phone,[Login], refWorkplace.Name as wp
 FROM [ITr].[dbo].[Employees] left join [ITr].[dbo].[refJob] ON (Employees.idJob = refJob.id) 

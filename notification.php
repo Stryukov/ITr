@@ -12,16 +12,18 @@ if (isset($_SESSION['login'])) {
     
     //if (isset($_POST['submit'])) {console.log('нажата');}
     if ($usr == '') {header("Location: login.php?auth=0");}
-    
+
     $stmt = sqlsrv_query($conn,
-        "SELECT id,[Login],lastname+' '+firstname+' '+middlename as fio, pwditr FROM Employees WHERE login='$usr' and state<>0");
+        "SELECT id,[Login],lastname+' '+firstname+' '+middlename as fio, pwditr, idRole FROM Employees WHERE login='$usr' and state<>0");
     $row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
+    if ($row['idRole'] == 6) {header("Location: login.php?auth=0&txt=noaccess"); die();}
     if ($row['pwditr'] <> crypt(iconv('utf-8','windows-1251',$pwd), $row['pwditr'])) {
-        header("Location: login.php?auth=0");
+        header("Location: login.php?auth=0".$row['idRole']);
     } else {
         $_SESSION['login'] = $row['Login'];
         $_SESSION['id'] = $row['id'];
         $_SESSION['user'] = iconv('windows-1251', 'utf-8', $row['fio']);
+        $_SESSION['role'] = $row['idRole'];
     }
     sqlsrv_free_stmt($stmt);
 }
@@ -225,7 +227,7 @@ sqlsrv_close($conn);
                     </a>
                     <ul class="dropdown-menu dropdown-user">
                         <li><a href="#"> <?php if (isset($_SESSION['user'])) {
-    echo $_SESSION['user'];
+    echo $_SESSION['user'].' - '.$_SESSION['role'];
 } ?></a>
                         </li>                    
                         <li class="divider"></li>                        

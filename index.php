@@ -104,7 +104,7 @@
                                             <i class="fa fa-users fa-5x"></i>
                                         </div>
                                         <div class="col-xs-9 text-right">
-                                            <div id="uAD" class="huge">0</div>
+                                            <div id="uAD" class="huge"><img src="/itr/img/tail-spin.svg" width="50" alt=""></div>
                                             <div>Пользователей в AD</div>
                                         </div>
                                     </div>
@@ -126,7 +126,7 @@
                                             <i class="fa fa-user-circle fa-5x"></i>
                                         </div>
                                         <div class="col-xs-9 text-right">
-                                            <div id="uITr" class="huge">0</div>
+                                            <div id="uITr" class="huge"><img src="/itr/img/tail-spin.svg" width="50" alt=""></div>
                                             <div>Сотрудников в ИТр</div>
                                         </div>
                                     </div>
@@ -148,7 +148,7 @@
                                             <i class="fa fa-desktop fa-5x"></i>
                                         </div>
                                         <div class="col-xs-9 text-right">
-                                            <div id="wStation" class="huge">0</div>
+                                            <div id="wStation" class="huge"><img src="/itr/img/tail-spin.svg" width="50" alt=""></div>
                                             <div>Рабочих станций</div>
                                         </div>
                                     </div>
@@ -170,7 +170,7 @@
                                             <i class="fa fa-server fa-5x"></i>
                                         </div>
                                         <div class="col-xs-9 text-right">
-                                            <div id="servers" class="huge">0</div>
+                                            <div id="servers" class="huge"><img src="/itr/img/tail-spin.svg" width="50" alt=""></div>
                                             <div>Серверов</div>
                                         </div>
                                     </div>
@@ -402,6 +402,56 @@
                     </div> -->
                     <!-- /.panel -->
                 </div>
+<div class="row">
+<div class="col-lg-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Мертвые души - Последний вход в AD
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover" id="deadSouls" >
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Display name</th>
+                                            <th>Email</th>
+                                            <th>Telephone</th>
+                                            <th>Last log on</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="deadSouls_body">
+                                        <tr>
+                                            <td colspan="5" style="text-align: center;"><img src="/itr/img/table.svg" width="50" alt=""></td>
+                                            <td style="display: none;"></td>
+                                            <td style="display: none;"></td>
+                                            <td style="display: none;"></td>
+                                            <td style="display: none;"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.table-responsive -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+</div>
+<div class="col-lg-3">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Операционные системы РМ
+        </div>
+        <!-- /.panel-heading -->
+        <div class="panel-body">
+            <div id="morris-kind-os" style="height: 285px;"><img style="margin-left: 150px" src="/itr/img/table.svg" width="50" alt=""></div>
+        </div>
+        <!-- /.panel-body -->
+    </div>
+    <!-- /.panel -->
+</div>   
+</div>             
                 <!-- /.col-lg-8 -->
                 <div class="col-lg-4">
                 <!--    <div class="panel panel-default">
@@ -610,6 +660,11 @@
     <!-- Page-Level Plugin Scripts - Dashboard -->
     <script src="js/plugins/morris/raphael-2.1.0.min.js"></script>
     <script src="js/plugins/morris/morris.js"></script>
+
+    <!-- Plugin Scripts - DataTable -->
+    <script src="js/plugins/dataTables/jquery.dataTables.js"></script>
+    <script src="js/plugins/dataTables/dataTables.bootstrap.js"></script> 
+    <script src="js/plugins/dataTables/dataTables.tableTools.js"></script>
 
     <!-- SB Admin Scripts - Include with every page -->
     <script src="js/sb-admin.js"></script>

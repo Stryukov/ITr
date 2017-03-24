@@ -2,6 +2,7 @@
 class cnf {
  public $ldap_user   = "adm\student"; // username
  public $ldap_pass   = "123456"; // associated password
+ public $ldap_server = "ldap://dc.local.adm";
  public $domain_name = "local.adm";  // Имя домена
  public $domain1     = "local";
  public $domain2     = "adm";

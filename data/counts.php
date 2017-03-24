@@ -6,7 +6,7 @@
 // Работа с Active Directory
 include ("../db.php");
 // Получение пользователей из Active Directory
-
+    $content= array();
     $cnf = new cnf;
     $ldap_user = $cnf->ldap_user; // username
     $ldap_pass = $cnf->ldap_pass; // associated password
@@ -56,7 +56,9 @@ sqlsrv_close($conn);
 
 //количество компов
     $base_dn = "OU=adm_workstation, DC=$domain1, DC=$domain2";
-    $filter = "(&(objectClass=computer)(&(name=*)(cn=*)))";
+    $filter = "(&(objectClass=computer)(&(name=*)(cn=*)))"; //(&(objectCategory=computer)(operatingSystem=Windows XP Professional)(operatingSystemServicePack=Service Pack 3))
+
+    //(&(objectClass=computer)(&(name=*)(cn=*)))
     
 //    $justthese = array("ou", "sn", "givenname");
 
@@ -80,7 +82,88 @@ sqlsrv_close($conn);
 
     $counts['servers'] = $number_returned;    
 
-echo json_encode($counts);  
+   $content[] = array(
+      'uAD' => $counts['uAD'],
+      'users' => $counts['users'],
+      'workstations' => $counts['workstations'],
+      'servers' => $counts['servers']
+   );    
+
+//количество компов с XP 
+    $base_dn = "OU=adm_workstation, DC=$domain1, DC=$domain2";
+    $filter = "(&(objectCategory=computer)(operatingSystem=Windows XP*)(operatingSystemServicePack=*))";
+    
+//    $justthese = array("ou", "sn", "givenname");
+
+    $search = ldap_search($ldap_con, $base_dn, $filter);
+
+    $number_returned = ldap_count_entries($ldap_con, $search); // Количество РМ 
+    $info = ldap_get_entries($ldap_con, $search);
+
+    $os['XP'] = $number_returned;
+
+//количество компов с Win7 
+    $base_dn = "OU=adm_workstation, DC=$domain1, DC=$domain2";
+    $filter = "(&(objectCategory=computer)(operatingSystem=Windows 7*))";
+    
+//    $justthese = array("ou", "sn", "givenname");
+
+    $search = ldap_search($ldap_con, $base_dn, $filter);
+
+    $number_returned = ldap_count_entries($ldap_con, $search); // Количество РМ 
+    $info = ldap_get_entries($ldap_con, $search);
+
+    $os['Win7'] = $number_returned;
+
+//количество компов с Win8 
+    $base_dn = "OU=adm_workstation, DC=$domain1, DC=$domain2";
+    $filter = "(&(objectCategory=computer)(operatingSystem=Windows 8*))";
+    
+//    $justthese = array("ou", "sn", "givenname");
+
+    $search = ldap_search($ldap_con, $base_dn, $filter);
+
+    $number_returned = ldap_count_entries($ldap_con, $search); // Количество РМ 
+    $info = ldap_get_entries($ldap_con, $search);
+
+    $os['Win8'] = $number_returned;
+
+//количество компов с Win10 
+    $base_dn = "OU=adm_workstation, DC=$domain1, DC=$domain2";
+    $filter = "(&(objectCategory=computer)(operatingSystem=Windows 10*))";
+    
+//    $justthese = array("ou", "sn", "givenname");
+
+    $search = ldap_search($ldap_con, $base_dn, $filter);
+
+    $number_returned = ldap_count_entries($ldap_con, $search); // Количество РМ 
+    $info = ldap_get_entries($ldap_con, $search);
+
+    $os['Win10'] = $number_returned;
+
+   $OScounts[0] = array(
+      'label' => 'Windows XP',
+      'value' => $os['XP']   ); 
+   $OScounts[1] = array(
+      'label' => 'Windows 7',
+      'value' => $os['Win7'] ); 
+   $OScounts[2] = array(
+      'label' => 'Windows 8',
+      'value' => $os['Win8'] ); 
+   $OScounts[3] = array(
+      'label' => 'Windows 10',
+      'value' => $os['Win10']); 
+   $OScounts[4] = array(
+      'label' => 'Другие',
+      'value' => $counts['workstations']-($os['Win10']+$os['XP']+$os['Win7']+$os['Win8'])  );    
+   
+
+$response = array(
+  'counts' => $content,
+  'os' => $OScounts
+);   
+
+echo json_encode($response);  
 //echo $number_returned;//. var_dump($info);
 
 ?>

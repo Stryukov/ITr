@@ -33,9 +33,6 @@
                                     <a id="ulists" href="people.php">Списки пользователей</a>
                                 </li>
                                 <li>
-                                    <a href="permissions.php">Роли и права доступа</a>
-                                </li>
-                                <li>
                                     <a href="access.php">Матрица доступа</a>
                                 </li>                                
                             </ul>
@@ -90,7 +87,19 @@
                                 </li>
                             </ul>
   
-                        </li>                                                                                                      
+                        </li> 
+                                <li id="administration">
+                                    <a href="#"><i class="fa fa-wrench fa-fw"></i> Администрирование<span class="fa arrow"></span></a>
+                                    <ul class="nav nav-second-level">
+                                        <li>
+                                            <a id="access" href="permissions.php">Роли и права доступа</a>
+                                        </li>
+                                        <li>
+                                            <a href="blank.php">Инструменты</a>
+                                        </li>
+                                    </ul>
+  
+                                </li>
 
                     </ul>
                     <!-- /#side-menu -->

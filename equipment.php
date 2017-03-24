@@ -25,6 +25,28 @@
     <link href="css/sb-admin.css" rel="stylesheet">
     <link href="css/select2.css" rel="stylesheet"/>
     <link href="css/jquery-ui.css" rel="stylesheet"/>
+
+
+     <!-- Core Scripts - Include with every page -->
+    <script src="js/jquery-1.10.2.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+
+    <!-- Page-Level Plugin Scripts - Blank -->
+    <script src="js/select2.js"></script>
+    <script src="js/equipment.js"></script>
+
+    <!-- Page-Level Plugin Scripts - Tables -->
+    <script src="js/plugins/dataTables/jquery.dataTables.js"></script>
+    <script src="js/plugins/dataTables/dataTables.bootstrap.js"></script>
+    <script src="js/plugins/dataTables/dataTables.tableTools.js"></script>
+    
+ 
+    <!-- SB Admin Scripts - Include with every page -->
+    <script src="js/sb-admin.js"></script>
+
+    <!-- Page-Level Demo Scripts - Tables - Use for reference -->   
     
 </head>
 
@@ -53,6 +75,14 @@
         </nav>
 
         <div id="page-wrapper">
+            <div class="row">
+                <?php 
+                    if ($_SESSION['role'] <> 8)
+                        {
+                            die('<br /><div class="alert alert-danger" role="alert"><a class="close" data-dismiss="alert">×</a><span class="fa fa-warning fa-fw"></span>Недостаточно прав для совершения операции</div>');
+                        } 
+                ?>  
+            </div>        
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">Реестр оборудования</h1>
@@ -623,26 +653,6 @@
     </div>
     <!-- /#wrapper -->
 
-     <!-- Core Scripts - Include with every page -->
-    <script src="js/jquery-1.10.2.js"></script>
-    <script src="js/jquery-ui.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
-
-    <!-- Page-Level Plugin Scripts - Blank -->
-    <script src="js/select2.js"></script>
-    <script src="js/equipment.js"></script>
-
-    <!-- Page-Level Plugin Scripts - Tables -->
-    <script src="js/plugins/dataTables/jquery.dataTables.js"></script>
-    <script src="js/plugins/dataTables/dataTables.bootstrap.js"></script>
-    <script src="js/plugins/dataTables/dataTables.tableTools.js"></script>
-    
- 
-    <!-- SB Admin Scripts - Include with every page -->
-    <script src="js/sb-admin.js"></script>
-
-    <!-- Page-Level Demo Scripts - Tables - Use for reference -->   
 
 </body>
 

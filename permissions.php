@@ -17,6 +17,21 @@
     <!-- SB Admin CSS - Include with every page -->
     <link href="css/sb-admin.css" rel="stylesheet">
 
+    <!-- Core Scripts - Include with every page -->
+    <script src="js/jquery-1.10.2.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+
+    <!-- Page-Level Plugin Scripts - Blank -->
+    <script type="text/javascript" src="js/tools.js"></script>
+    <script type="text/javascript" src="js/permissions.js"></script>
+
+    <!-- SB Admin Scripts - Include with every page -->
+    <script src="js/sb-admin.js"></script>
+
+    <!-- Page-Level Demo Scripts - Blank - Use for reference -->
+
+
 </head>
 
 <body>
@@ -43,12 +58,21 @@
         <?php include 'navigation.php' ?>
             <!-- /.navbar-static-side -->
         </nav>
+
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Пустая</h1>
+                    <h1 class="page-header">Роли и права доступа</h1>
                 </div>
                 <!-- /.col-lg-12 -->
+            </div>
+            <div class="row">
+                <?php 
+                    if ($_SESSION['role'] <> 1)
+                        {
+                            die('<div class="alert alert-danger" role="alert"><a class="close" data-dismiss="alert">×</a><span class="fa fa-warning fa-fw"></span>Недостаточно прав для совершения операции</div>');
+                        } 
+                ?>  
             </div>
             <!-- /.row -->
         </div>
@@ -56,19 +80,6 @@
 
     </div>
     <!-- /#wrapper -->
-
-    <!-- Core Scripts - Include with every page -->
-    <script src="js/jquery-1.10.2.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
-
-    <!-- Page-Level Plugin Scripts - Blank -->
-    <script type="text/javascript" src="js/tools.js"></script>
-
-    <!-- SB Admin Scripts - Include with every page -->
-    <script src="js/sb-admin.js"></script>
-
-    <!-- Page-Level Demo Scripts - Blank - Use for reference -->
 
 </body>
 

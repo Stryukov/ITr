@@ -61,7 +61,13 @@
                     </div>
                     <div class="panel-body">
                         <form role="form" action="index.php" method="POST">
-                        <?php if (isset($_GET['auth'])) {echo '<div class="alert alert-danger" role="alert"><a class="close" data-dismiss="alert">×</a><span class="fa fa-warning fa-fw"></span>Вы ввели не верный логин или пароль.</div>';} 
+                        <?php if (isset($_GET['auth'])) {
+                            if ($_GET['txt'] == 'noaccess') {
+                                echo '<div class="alert alert-danger" role="alert"><a class="close" data-dismiss="alert">×</a><span class="fa fa-warning fa-fw"></span>У вас нет доступа в систему.</div>';
+                            } else {
+                                echo '<div class="alert alert-danger" role="alert"><a class="close" data-dismiss="alert">×</a><span class="fa fa-warning fa-fw"></span>Вы ввели не верный логин или пароль.</div>';
+                            }
+                        } 
                             if (isset($_GET['fogot']) and isset($_GET['email'])){
                                 $sql = "select firstname+' '+middlename as name, login, pwditr, email from employees where idrole<>6 and email='".$_GET['email']."'";
                                 $stmt = sqlsrv_query($conn,$sql);

@@ -3,7 +3,7 @@
 include "../db.php";
 
 $content='<ul>';
-    $stmt = sqlsrv_query($conn,"SELECT * FROM refOrganization order by Name");
+    $stmt = sqlsrv_query($conn,"SELECT * FROM refOrganization where id <> 27 order by Name");
     while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)){
         $org=iconv("windows-1251","utf-8",$row["Name"]);
         $idorg=$row["id"];
@@ -24,7 +24,7 @@ $content='<ul>';
     $content .="</ul></li>";    
         }
 
-$content .="<li class='parent_li'><span id='f0' onclick='cl(this)' title=''><i class='fa fa-trash fa-fw icon-plus-sign'></i>Уволенные сотрудники</span></li></ul>";
+$content .="<li class='parent_li'><span id='e1145' onclick='cl(this)' title=''><i class='fa fa-trash fa-fw icon-plus-sign'></i>Уволенные сотрудники</span></li></ul>";
 echo $content;
 sqlsrv_free_stmt($stmt);
 sqlsrv_free_stmt($stmt2);

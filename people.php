@@ -18,20 +18,20 @@
     <link href="css/jquery-ui.css" rel="stylesheet"/>
         
         
-    <!-- Page-Level Plugin CSS - Blank -->
-<link href="css/plugins/dialog/bootstrap-dialog.min.css" rel="stylesheet" type="text/css" />
-<link href="css/plugins/tag/bootstrap-tagsinput.css" rel="stylesheet" type="text/css" />
-<link href="css/plugins/docs/docs.min.css" rel="stylesheet" type="text/css" />
+        <!-- Page-Level Plugin CSS - Blank -->
+    <link href="css/plugins/dialog/bootstrap-dialog.min.css" rel="stylesheet" type="text/css" />
+    <link href="css/plugins/tag/bootstrap-tagsinput.css" rel="stylesheet" type="text/css" />
+    <link href="css/plugins/docs/docs.min.css" rel="stylesheet" type="text/css" />
 
-    
+        
 
-    <!-- SB Admin CSS - Include with every page -->
+        <!-- SB Admin CSS - Include with every page -->
     <link href="css/sb-admin.css" rel="stylesheet">
-<style type="text/css">
-.dataTable {
-        width: 100% !important;
-    }
-</style>
+    <style type="text/css">
+    .dataTable {
+            width: 100% !important;
+        }
+    </style>
 </head>
 
 <body>
@@ -68,7 +68,7 @@
                         <h1 class="page-header">Список пользователей</h1>
                     </div>
                     <div class="col-xs-6 col-md-4" style="text-align: right;margin-top: 50px;">
-                        <button id="ftoogle" type="button" class="btn btn-primary"><i class="fa fa-filter"></i> Фильтр</button>
+                      <!--  <button id="ftoogle" type="button" class="btn btn-primary"><i class="fa fa-filter"></i> Фильтр</button> -->
                         <button  class="btn btn-primary" data-toggle="modal" onclick="showModalD('newUser')" ><i class="fa fa-user-plus"></i> Добавить</button>
 
                         <!-- Split button -->
@@ -644,7 +644,7 @@
 
     <!-- Core Scripts - Include with every page -->
     <script src="js/jquery-1.10.2.js"></script>
-      <script src="js/jquery-ui.js"></script>
+    <script src="js/jquery-ui.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
 	<!-- <script src="js/jquery.dataTables.min.js"></script> -->
@@ -656,11 +656,11 @@
     
     <script src="js/plugins/dataTables/jquery.dataTables.js"></script>
     <script src="js/plugins/dataTables/dataTables.bootstrap.js"></script> 
-       <script src="js/plugins/dataTables/dataTables.tableTools.js"></script>
-       <script src="js/plugins/dialog/bootstrap-dialog.min.js"></script>
-       <script src="js/holder.js"></script>
-       <script src="js/plugins/tag/bootstrap-tagsinput.js"></script>
-       <script type="text/javascript" src="js/plugins/tag/typeahead.bundle.js"></script>
+    <script src="js/plugins/dataTables/dataTables.tableTools.js"></script>
+    <script src="js/plugins/dialog/bootstrap-dialog.min.js"></script>
+    <script src="js/holder.js"></script>
+    <script src="js/plugins/tag/bootstrap-tagsinput.js"></script>
+    <script type="text/javascript" src="js/plugins/tag/typeahead.bundle.js"></script>
 
 	
     <!-- SB Admin Scripts - Include with every page -->
